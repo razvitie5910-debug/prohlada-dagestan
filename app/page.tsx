@@ -148,28 +148,50 @@ export default function Home() {
           </div>
         </div>
         <div className="values">
-          <div>
-            <span aria-hidden="true">◇</span>
+          <article className="value-card value-privacy">
+            <div className="value-visual" aria-hidden="true">
+              <span className="value-orbit value-orbit-one" />
+              <span className="value-orbit value-orbit-two" />
+              <span className="value-symbol">◇</span>
+              <small>только вы</small>
+            </div>
             <strong>Приватность</strong>
             <p>Никаких посторонних на территории во время вашего отдыха.</p>
-          </div>
-          <div>
-            <span aria-hidden="true">≋</span>
+          </article>
+          <article className="value-card value-water">
+            <div className="value-visual" aria-hidden="true">
+              <span className="water-sun" />
+              <span className="water-line water-line-one" />
+              <span className="water-line water-line-two" />
+              <span className="water-line water-line-three" />
+              <small>свежесть</small>
+            </div>
             <strong>Живая вода</strong>
             <p>Бассейн с водопадом и свежей чистой водой.</p>
-          </div>
-          <div>
-            <span aria-hidden="true">♨</span>
+          </article>
+          <article className="value-card value-warmth">
+            <div className="value-visual" aria-hidden="true">
+              <span className="warmth-glow" />
+              <span className="steam steam-one" />
+              <span className="steam steam-two" />
+              <span className="steam steam-three" />
+              <small>баня · чан</small>
+            </div>
             <strong>Тепло круглый год</strong>
             <p>Баня, лечебный чан и уютные коттеджи.</p>
-          </div>
-          <div>
-            <span aria-hidden="true">⌂</span>
+          </article>
+          <article className="value-card value-company">
+            <div className="value-visual" aria-hidden="true">
+              <span className="cottage-roof" />
+              <span className="cottage-body" />
+              <span className="cottage-door" />
+              <span className="cottage-window" />
+              <small>до 20 гостей</small>
+            </div>
             <strong>Для большой компании</strong>
             <p>До 20 комфортных спальных мест.</p>
-          </div>
-        </div>
-      </section>
+          </article>
+        </div>      </section>
 
       <section className="amenities-section" id="amenities">
         <div className="section-heading">
