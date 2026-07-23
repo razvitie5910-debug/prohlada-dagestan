@@ -150,9 +150,7 @@ export default function Home() {
         <div className="values">
           <article className="value-card value-privacy">
             <div className="value-visual" aria-hidden="true">
-              <span className="value-orbit value-orbit-one" />
-              <span className="value-orbit value-orbit-two" />
-              <span className="value-symbol">◇</span>
+              <img src="/value-privacy.jpg" alt="" />
               <small>только вы</small>
             </div>
             <strong>Приватность</strong>
@@ -160,10 +158,7 @@ export default function Home() {
           </article>
           <article className="value-card value-water">
             <div className="value-visual" aria-hidden="true">
-              <span className="water-sun" />
-              <span className="water-line water-line-one" />
-              <span className="water-line water-line-two" />
-              <span className="water-line water-line-three" />
+              <img src="/value-water.jpg" alt="" />
               <small>свежесть</small>
             </div>
             <strong>Живая вода</strong>
@@ -171,10 +166,7 @@ export default function Home() {
           </article>
           <article className="value-card value-warmth">
             <div className="value-visual" aria-hidden="true">
-              <span className="warmth-glow" />
-              <span className="steam steam-one" />
-              <span className="steam steam-two" />
-              <span className="steam steam-three" />
+              <img src="/value-warmth.jpg" alt="" />
               <small>баня · чан</small>
             </div>
             <strong>Тепло круглый год</strong>
@@ -182,10 +174,7 @@ export default function Home() {
           </article>
           <article className="value-card value-company">
             <div className="value-visual" aria-hidden="true">
-              <span className="cottage-roof" />
-              <span className="cottage-body" />
-              <span className="cottage-door" />
-              <span className="cottage-window" />
+              <img src="/value-company.jpg" alt="" />
               <small>до 20 гостей</small>
             </div>
             <strong>Для большой компании</strong>
