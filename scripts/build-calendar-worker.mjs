@@ -8,7 +8,7 @@ let publicHtml = await read("outputs/prohlada-preview.html");
 const calendarSection = await read("assets/calendar-section.html");
 const calendarCss = await read("assets/calendar.css");
 const publicJs = await read("assets/calendar.js");
-const adminHtml = await read("assets/admin.html");
+let adminHtml = await read("assets/admin.html");
 const adminJs = await read("assets/admin.js");
 const runtime = await read("worker/calendar-runtime.js");
 const photo = await readFile(new URL("public/prohlada-cottage.png", root));
@@ -24,12 +24,24 @@ publicHtml = publicHtml.replace(
 );
 publicHtml = publicHtml.replace(
   "</head>",
-  '<link rel="stylesheet" href="/calendar.css">\n</head>'
+  `<style>\n${calendarCss}\n</style>\n</head>`
 );
 publicHtml = publicHtml.replace(
   "</body>",
-  '<script src="/calendar.js"></script>\n</body>'
+  `<script>\n${publicJs}\n</script>\n</body>`
 );
+
+// Keep the booking UI reliable even when the hosting edge does not forward
+// standalone CSS or JavaScript asset requests to the Worker.
+adminHtml = adminHtml
+  .replace(
+    '<link rel="stylesheet" href="/calendar.css">',
+    `<style>\n${calendarCss}\n</style>`
+  )
+  .replace(
+    '<script src="/admin.js"></script>',
+    `<script>\n${adminJs}\n</script>`
+  );
 
 const favicon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="32" fill="#2d382d"/><text x="32" y="42" text-anchor="middle" font-size="34" fill="#d6aa83">✣</text></svg>';
 const constants = [
