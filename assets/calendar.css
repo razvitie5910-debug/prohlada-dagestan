@@ -119,6 +119,34 @@
   background: #f4f0e8;
 }
 
+.booking-calendar-section .heading {
+  width: min(930px, 100%);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  text-align: center;
+}
+
+.booking-calendar-section .heading > div {
+  width: 100%;
+}
+
+.booking-calendar-section .heading .eyebrow {
+  margin-bottom: 18px;
+}
+
+.booking-calendar-section .heading h2 {
+  max-width: 930px;
+  margin: 0 auto;
+}
+
+.booking-calendar-section .heading > p {
+  max-width: 670px;
+  margin: 0 auto;
+}
+
 .availability-search {
   width: min(930px, 100%);
   margin: 42px auto 0;
@@ -380,6 +408,8 @@
 
 @media (max-width: 800px) {
   .booking-calendar-section { padding: 70px 0; }
+  .booking-calendar-section .heading { gap: 18px; }
+  .booking-calendar-section .heading > p { max-width: 520px; }
   .availability-search { margin-top: 34px; padding: 22px 16px; }
   .date-fields,
   .guest-fields { grid-template-columns: 1fr; }
