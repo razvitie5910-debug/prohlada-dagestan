@@ -122,7 +122,7 @@ export default function Home() {
           />
           <div className="hero-badge">
             <span>Вода</span>
-            <strong>Свежая и чистая</strong>
+            <strong>Пресная и чистая</strong>
           </div>
           <div className="hero-caption">
             <span>Гостевой дом</span>
@@ -138,8 +138,9 @@ export default function Home() {
           <div className="intro-copy">
             <p>
               Здесь можно собрать семью или друзей и на время получить целое
-              пространство только для себя: плавать, готовить на огне, париться
-              в бане и слушать воду и птиц.
+              пространство только для себя: плавать и готовить на огне.
+              Париться в банном лечебном чане и в парилке. Слушать журчание
+              воды и пение птиц.
             </p>
             <p>
               Мы собрали всё необходимое на одной территории, чтобы вам
@@ -156,7 +157,7 @@ export default function Home() {
           <div>
             <span aria-hidden="true">≋</span>
             <strong>Живая вода</strong>
-            <p>Бассейн с водопадом и свежей чистой водой.</p>
+            <p>Бассейн с водопадом и пресной чистой водой.</p>
           </div>
           <div>
             <span aria-hidden="true">♨</span>
