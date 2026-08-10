@@ -1,0 +1,79 @@
+<section class="booking-calendar-section" id="calendar">
+  <div class="wrap">
+    <div class="heading">
+      <div>
+        <p class="eyebrow">Проверить свободные даты</p>
+        <h2>Выберите даты отдыха</h2>
+      </div>
+      <p>Укажите заезд, выезд и количество гостей. Занятые владельцем дни будут недоступны для выбора.</p>
+    </div>
+
+    <form class="availability-search" id="availability-search">
+      <fieldset class="search-group">
+        <div class="date-fields">
+          <div>
+            <label class="search-label" for="checkin-trigger">Дата заезда</label>
+            <button class="date-trigger placeholder" id="checkin-trigger" type="button"><span id="checkin-label">Выберите дату</span><span class="date-icon">▦</span></button>
+          </div>
+          <div>
+            <label class="search-label" for="checkout-trigger">Дата выезда</label>
+            <button class="date-trigger placeholder" id="checkout-trigger" type="button"><span id="checkout-label">Выберите дату</span><span class="date-icon">▦</span></button>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="search-group">
+        <legend>Количество гостей</legend>
+        <p class="search-hint">Укажите взрослых и детей</p>
+        <div class="guest-fields">
+          <select class="guest-select" id="adult-count" aria-label="Количество взрослых">
+            <option value="1">1 взрослый</option>
+            <option value="2" selected>2 взрослых</option>
+            <option value="3">3 взрослых</option>
+            <option value="4">4 взрослых</option>
+            <option value="5">5 взрослых</option>
+            <option value="6">6 взрослых</option>
+            <option value="7">7 взрослых</option>
+            <option value="8">8 взрослых</option>
+            <option value="9">9 взрослых</option>
+            <option value="10">10 взрослых</option>
+            <option value="15">до 15 взрослых</option>
+            <option value="20">до 20 взрослых</option>
+          </select>
+          <select class="guest-select" id="child-count" aria-label="Количество детей">
+            <option value="0" selected>Без детей</option>
+            <option value="1">1 ребёнок</option>
+            <option value="2">2 ребёнка</option>
+            <option value="3">3 ребёнка</option>
+            <option value="4">4 ребёнка</option>
+            <option value="5">5 детей</option>
+            <option value="6">6 детей</option>
+            <option value="10">до 10 детей</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <button class="availability-submit" type="submit">Проверить даты</button>
+      <div class="calendar-message" id="calendar-message" aria-live="polite"></div>
+      <div class="availability-result hidden" id="availability-result">
+        <div><strong id="availability-result-title"></strong><span id="availability-result-guests"></span></div>
+        <a href="https://www.instagram.com/prohlada.dagestan/" target="_blank" rel="noreferrer">Запросить бронирование ↗</a>
+      </div>
+    </form>
+  </div>
+
+  <div class="calendar-modal hidden" id="calendar-modal" role="dialog" aria-modal="true" aria-labelledby="calendar-dialog-title">
+    <div class="calendar-dialog">
+      <div class="dialog-toolbar">
+        <button class="calendar-nav" id="public-calendar-prev" type="button" aria-label="Предыдущий месяц">←</button>
+        <p id="calendar-dialog-title">Выберите дату заезда и дату выезда</p>
+        <button class="calendar-nav" id="public-calendar-next" type="button" aria-label="Следующий месяц">→</button>
+      </div>
+      <div class="month-panels" id="month-panels"></div>
+      <div class="dialog-footer">
+        <p id="calendar-selection-hint">Сначала выберите дату заезда</p>
+        <button class="dialog-close" id="calendar-close" type="button">Готово</button>
+      </div>
+    </div>
+  </div>
+</section>

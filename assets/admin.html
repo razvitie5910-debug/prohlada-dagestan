@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Админка календаря — Прохлада</title>
+  <link rel="stylesheet" href="/calendar.css">
+  <style>
+    :root{--ink:#20251f;--green:#2d382d;--cream:#f4f0e8;--paper:#fbfaf6;--copper:#a76d48;--line:rgba(32,37,31,.14)}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,sans-serif}a{color:inherit;text-decoration:none}button,input{font:inherit}
+    .admin-header{width:min(1120px,calc(100% - 40px));height:84px;margin:auto;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+    .brand{display:flex;align-items:center;gap:12px}.brand-mark{width:38px;height:38px;display:grid;place-items:center;border:1px solid var(--copper);border-radius:50%;color:var(--copper);font-size:22px}.brand strong,.brand small{display:block}.brand strong{font:400 21px Georgia,serif;letter-spacing:.08em}.brand small{margin-top:3px;font-size:8px;letter-spacing:.2em}
+    .admin-main{width:min(1120px,calc(100% - 40px));margin:0 auto;padding:70px 0 100px}.admin-kicker{margin:0 0 18px;color:var(--copper);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+    h1{max-width:760px;margin:0;font:400 clamp(44px,6vw,76px)/1.02 Georgia,serif;letter-spacing:-.045em}.admin-lead{max-width:660px;color:#656a62;line-height:1.7}
+    .login-card{max-width:480px;margin-top:42px;padding:34px;border:1px solid var(--line);background:var(--cream)}.login-card label{display:block;margin-bottom:10px;font-size:12px;font-weight:700}.login-row{display:flex;gap:10px}.login-row input{min-width:0;flex:1;padding:15px;border:1px solid var(--line);background:#fff;border-radius:3px}.primary,.quiet{padding:14px 20px;border:0;border-radius:999px;cursor:pointer}.primary{background:var(--green);color:#fff}.quiet{background:transparent;border:1px solid var(--line);color:var(--ink)}
+    .admin-panel{margin-top:50px}.admin-calendar{margin-top:28px}.admin-calendar .calendar-day{cursor:pointer}.admin-calendar .calendar-day.closed{background:#f1efe9;color:#979b94}.admin-calendar .calendar-day:hover{border-color:var(--copper);transform:translateY(-1px)}
+    .admin-help{margin-top:22px;padding:22px;background:var(--cream);color:#60655e;font-size:13px;line-height:1.65}.admin-help strong{color:var(--ink)}.admin-status{min-height:20px;margin-top:15px;color:var(--copper);font-size:12px}
+    .hidden{display:none!important}
+    @media(max-width:700px){.admin-main{padding-top:48px}.login-row{flex-direction:column}.calendar-card{padding:16px 10px}.admin-header .quiet{padding:10px 14px}}
+  </style>
+</head>
+<body>
+  <header class="admin-header">
+    <a class="brand" href="/">
+      <span class="brand-mark">✣</span>
+      <span><strong>ПРОХЛАДА</strong><small>УПРАВЛЕНИЕ КАЛЕНДАРЁМ</small></span>
+    </a>
+    <button class="quiet hidden" id="logout-button" type="button">Выйти</button>
+  </header>
+
+  <main class="admin-main">
+    <p class="admin-kicker">Панель владельца</p>
+    <h1>Свободные и занятые даты</h1>
+    <p class="admin-lead">Нажимайте на дни в календаре, чтобы менять их статус. Изменения сразу появятся на главной странице для гостей.</p>
+
+    <section class="login-card" id="login-card">
+      <form id="login-form">
+        <label for="admin-password">Пароль администратора</label>
+        <div class="login-row">
+          <input id="admin-password" type="password" autocomplete="current-password" required placeholder="Введите пароль">
+          <button class="primary" type="submit">Войти</button>
+        </div>
+        <div class="admin-status" id="login-status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <section class="admin-panel hidden" id="admin-panel">
+      <div class="calendar-card admin-calendar">
+        <div class="calendar-toolbar">
+          <button class="calendar-nav" id="admin-calendar-prev" type="button" aria-label="Предыдущий месяц">←</button>
+          <h3 id="admin-calendar-title"></h3>
+          <button class="calendar-nav" id="admin-calendar-next" type="button" aria-label="Следующий месяц">→</button>
+        </div>
+        <div class="calendar-weekdays" aria-hidden="true"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
+        <div class="calendar-grid" id="admin-calendar-grid"></div>
+        <div class="calendar-legend">
+          <span><i class="legend-free"></i> Свободно</span>
+          <span><i class="legend-busy"></i> Занято</span>
+        </div>
+        <div class="admin-status" id="admin-status" aria-live="polite"></div>
+      </div>
+      <div class="admin-help"><strong>Как менять статус:</strong> все дни свободны по умолчанию. Один клик делает дату занятой, повторный клик снова освобождает её.</div>
+    </section>
+  </main>
+  <script src="/admin.js"></script>
+</body>
+</html>
