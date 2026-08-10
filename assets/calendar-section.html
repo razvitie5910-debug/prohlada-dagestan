@@ -1,0 +1,42 @@
+<section class="calendar-section" id="calendar">
+  <div class="wrap">
+    <div class="heading">
+      <div>
+        <p class="eyebrow">Календарь свободных дат</p>
+        <h2>Выберите день для отдыха</h2>
+      </div>
+      <p>Зелёным отмечены даты, которые сейчас свободны. Выберите подходящий день и свяжитесь с нами для окончательного подтверждения.</p>
+    </div>
+
+    <div class="calendar-shell">
+      <div class="calendar-card">
+        <div class="calendar-toolbar">
+          <button class="calendar-nav" id="public-calendar-prev" type="button" aria-label="Предыдущий месяц">←</button>
+          <h3 id="public-calendar-title"></h3>
+          <button class="calendar-nav" id="public-calendar-next" type="button" aria-label="Следующий месяц">→</button>
+        </div>
+        <div class="calendar-weekdays" aria-hidden="true">
+          <span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span>
+        </div>
+        <div class="calendar-grid" id="public-calendar-grid"></div>
+        <div class="calendar-legend">
+          <span><i class="legend-free"></i> Свободно</span>
+          <span><i class="legend-busy"></i> Занято</span>
+          <span><i class="legend-closed"></i> Нет отметки</span>
+        </div>
+      </div>
+
+      <aside class="calendar-selection">
+        <p class="eyebrow">Ваша дата</p>
+        <h3>Выберите свободный день</h3>
+        <p>После выбора напишите владельцу — он подтвердит бронь и расскажет детали.</p>
+        <div class="selected-date">
+          <small>Выбранная дата</small>
+          <strong id="selected-date-label">Пока не выбрана</strong>
+        </div>
+        <div class="calendar-message" id="calendar-message" aria-live="polite"></div>
+        <a class="button" id="selected-date-contact" href="https://www.instagram.com/prohlada.dagestan/" target="_blank" rel="noreferrer" aria-disabled="true">Написать в Instagram <span>↗</span></a>
+      </aside>
+    </div>
+  </div>
+</section>
