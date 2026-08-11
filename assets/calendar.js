@@ -233,7 +233,11 @@
     resultTitle.textContent = displayDate(checkin) + " — " + displayDate(checkout);
     resultGuests.textContent = adults.options[adults.selectedIndex].text + ", " + children.options[children.selectedIndex].text.toLowerCase();
     result.classList.remove("hidden");
-    document.getElementById("request-name").focus();
+    message.textContent = "Даты свободны. Заполните имя и телефон ниже.";
+    window.setTimeout(function () {
+      result.scrollIntoView({ behavior: "smooth", block: "center" });
+      document.getElementById("request-name").focus({ preventScroll: true });
+    }, 50);
   });
 
   requestButton.addEventListener("click", async function () {
