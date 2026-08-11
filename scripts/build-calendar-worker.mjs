@@ -1,5 +1,7 @@
 import { mkdir, readFile } from "node:fs/promises";
-import { renameSync, rmSync, writeFileSync } from "node:fs";
+import { writeFileSync } from "node:fs";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const root = new URL("../", import.meta.url);
 const read = async (path) => readFile(new URL(path, root), "utf8");
@@ -54,10 +56,8 @@ const constants = [
   "const FAVICON = " + JSON.stringify(favicon) + ";"
 ].join("\n");
 
-const outputDir = new URL("dist/server/", root);
+const outputRoot = process.env.PROHLADA_BUILD_ROOT || fileURLToPath(root);
+const outputDir = join(outputRoot, "dist", "server");
 await mkdir(outputDir, { recursive: true });
-const temporary = new URL("dist/server/index.calendar.tmp", root);
-const output = new URL("dist/server/index.js", root);
-writeFileSync(temporary, constants + "\n" + runtime);
-rmSync(output, { force: true });
-renameSync(temporary, output);
+const output = join(outputDir, "index.js");
+writeFileSync(output, constants + "\n" + runtime);

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <title>Админка календаря — Прохлада</title>
+  <title>Бронирования — Прохлада</title>
   <link rel="stylesheet" href="/calendar.css">
   <style>
     :root{--ink:#20251f;--green:#2d382d;--cream:#f4f0e8;--paper:#fbfaf6;--copper:#a76d48;--line:rgba(32,37,31,.14)}
@@ -16,23 +16,27 @@
     .login-card{max-width:480px;margin-top:42px;padding:34px;border:1px solid var(--line);background:var(--cream)}.login-card label{display:block;margin-bottom:10px;font-size:12px;font-weight:700}.login-row{display:flex;gap:10px}.login-row input{min-width:0;flex:1;padding:15px;border:1px solid var(--line);background:#fff;border-radius:3px}.primary,.quiet{padding:14px 20px;border:0;border-radius:999px;cursor:pointer}.primary{background:var(--green);color:#fff}.quiet{background:transparent;border:1px solid var(--line);color:var(--ink)}
     .admin-panel{margin-top:50px}.admin-calendar{margin-top:28px}.admin-calendar .calendar-day{cursor:pointer}.admin-calendar .calendar-day.closed{background:#f1efe9;color:#979b94}.admin-calendar .calendar-day:hover{border-color:var(--copper);transform:translateY(-1px)}
     .admin-help{margin-top:22px;padding:22px;background:var(--cream);color:#60655e;font-size:13px;line-height:1.65}.admin-help strong{color:var(--ink)}.admin-status{min-height:20px;margin-top:15px;color:var(--copper);font-size:12px}
+    .section-top{margin:54px 0 20px;display:flex;align-items:end;justify-content:space-between;gap:20px}.section-top h2{margin:0;font:400 clamp(32px,4vw,48px)/1.05 Georgia,serif}.section-top p{margin:8px 0 0;color:#6b7069}.booking-actions{display:flex;gap:10px;align-items:center}.booking-filter{padding:12px 38px 12px 14px;border:1px solid var(--line);border-radius:999px;background:#fff}
+    .booking-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:20px 0}.summary-card{padding:18px 20px;border:1px solid var(--line);background:#fff}.summary-card strong{display:block;font:400 30px Georgia,serif}.summary-card span{color:#70756e;font-size:11px;text-transform:uppercase;letter-spacing:.1em}
+    .booking-list{display:grid;gap:12px}.booking-empty{padding:42px;border:1px dashed var(--line);color:#747971;text-align:center}.booking-card{display:grid;grid-template-columns:140px 1fr auto;gap:24px;align-items:center;padding:22px;border:1px solid var(--line);background:#fff;transition:.2s}.booking-card:hover{border-color:rgba(167,109,72,.5);transform:translateY(-1px)}.booking-date{font:400 21px/1.25 Georgia,serif}.booking-date small{display:block;margin-top:5px;color:#777c75;font:11px Arial,sans-serif}.booking-name{margin:0 0 7px;font:700 20px Georgia,serif}.booking-meta{display:flex;flex-wrap:wrap;gap:7px 16px;color:#686d66;font-size:13px}.booking-note{margin:10px 0 0;color:#7a7e78;font-size:12px}.booking-side{text-align:right}.status-pill{display:inline-block;padding:7px 10px;border-radius:999px;background:#f4f0e8;color:#79523b;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}.status-confirmed{background:#e5eee4;color:#365239}.status-paid{background:#dcebe4;color:#235137}.status-cancelled{background:#eeeae7;color:#817975}.booking-price{display:block;margin:10px 0 12px;font:400 20px Georgia,serif}
+    .booking-modal{position:fixed;inset:0;z-index:40;display:grid;place-items:center;padding:20px;background:rgba(22,27,22,.66)}.booking-dialog{width:min(760px,100%);max-height:calc(100vh - 40px);overflow:auto;padding:30px;background:var(--paper);box-shadow:0 25px 80px rgba(0,0,0,.25)}.booking-dialog-head{display:flex;justify-content:space-between;gap:20px;align-items:start}.booking-dialog h2{margin:0;font:400 38px Georgia,serif}.icon-button{width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:transparent;cursor:pointer}.booking-form{margin-top:26px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.form-field{display:grid;gap:7px}.form-field.full{grid-column:1/-1}.form-field label{font-size:11px;font-weight:700;letter-spacing:.04em}.form-field input,.form-field select,.form-field textarea{width:100%;padding:13px;border:1px solid var(--line);border-radius:4px;background:#fff}.form-field textarea{min-height:90px;resize:vertical}.form-actions{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:24px}.form-status{color:var(--copper);font-size:12px}
     .hidden{display:none!important}
-    @media(max-width:700px){.admin-main{padding-top:48px}.login-row{flex-direction:column}.calendar-card{padding:16px 10px}.admin-header .quiet{padding:10px 14px}}
+    @media(max-width:700px){.admin-main{padding-top:48px}.login-row,.section-top,.booking-actions,.form-actions{align-items:stretch;flex-direction:column}.booking-summary{grid-template-columns:1fr 1fr}.booking-card{grid-template-columns:1fr;gap:12px}.booking-side{text-align:left}.form-grid{grid-template-columns:1fr}.form-field.full{grid-column:auto}.calendar-card{padding:16px 10px}.admin-header .quiet{padding:10px 14px}}
   </style>
 </head>
 <body>
   <header class="admin-header">
     <a class="brand" href="/">
       <span class="brand-mark">✣</span>
-      <span><strong>ПРОХЛАДА</strong><small>УПРАВЛЕНИЕ КАЛЕНДАРЁМ</small></span>
+      <span><strong>ПРОХЛАДА</strong><small>БРОНИРОВАНИЯ И КАЛЕНДАРЬ</small></span>
     </a>
     <button class="quiet hidden" id="logout-button" type="button">Выйти</button>
   </header>
 
   <main class="admin-main">
     <p class="admin-kicker">Панель владельца</p>
-    <h1>Свободные и занятые даты</h1>
-    <p class="admin-lead">Нажимайте на дни в календаре, чтобы менять их статус. Изменения сразу появятся на главной странице для гостей.</p>
+    <h1>Все гости и даты в одном месте</h1>
+    <p class="admin-lead">Заявки с сайта появляются здесь автоматически. Откройте карточку, чтобы подтвердить бронь, изменить даты, сумму, залог или данные гостя.</p>
 
     <section class="login-card" id="login-card">
       <form id="login-form">
@@ -46,6 +50,21 @@
     </section>
 
     <section class="admin-panel hidden" id="admin-panel">
+      <div class="section-top">
+        <div><h2>Бронирования</h2><p>Новые заявки, подтверждённые заезды и оплаты.</p></div>
+        <div class="booking-actions">
+          <select class="booking-filter" id="booking-filter" aria-label="Фильтр бронирований">
+            <option value="">Все статусы</option><option value="new">Новые</option><option value="confirmed">Подтверждённые</option><option value="paid">Оплаченные</option><option value="cancelled">Отменённые</option>
+          </select>
+          <button class="primary" id="add-booking" type="button">+ Добавить бронь</button>
+        </div>
+      </div>
+      <div class="booking-summary" id="booking-summary"></div>
+      <div class="booking-list" id="booking-list"></div>
+
+      <div class="section-top">
+        <div><h2>Календарь занятости</h2><p>Можно отдельно закрыть день без создания брони.</p></div>
+      </div>
       <div class="calendar-card admin-calendar">
         <div class="calendar-toolbar">
           <button class="calendar-nav" id="admin-calendar-prev" type="button" aria-label="Предыдущий месяц">←</button>
@@ -60,9 +79,35 @@
         </div>
         <div class="admin-status" id="admin-status" aria-live="polite"></div>
       </div>
-      <div class="admin-help"><strong>Как менять статус:</strong> все дни свободны по умолчанию. Один клик делает дату занятой, повторный клик снова освобождает её.</div>
+      <div class="admin-help"><strong>Как это работает:</strong> подтверждённые и оплаченные брони закрывают даты автоматически. Остальные дни свободны по умолчанию. Один клик по свободному дню закрывает его вручную, повторный — освобождает.</div>
     </section>
   </main>
+
+  <div class="booking-modal hidden" id="booking-modal" role="dialog" aria-modal="true" aria-labelledby="booking-dialog-title">
+    <div class="booking-dialog">
+      <div class="booking-dialog-head"><div><p class="admin-kicker">Карточка гостя</p><h2 id="booking-dialog-title">Новая бронь</h2></div><button class="icon-button" id="booking-close" type="button" aria-label="Закрыть">×</button></div>
+      <form class="booking-form" id="booking-form">
+        <input type="hidden" id="booking-id">
+        <div class="form-grid">
+          <div class="form-field"><label for="booking-name">Имя гостя</label><input id="booking-name" required></div>
+          <div class="form-field"><label for="booking-phone">Телефон</label><input id="booking-phone" type="tel" required></div>
+          <div class="form-field"><label for="booking-checkin">Дата заезда</label><input id="booking-checkin" type="date" required></div>
+          <div class="form-field"><label for="booking-checkout">Дата выезда</label><input id="booking-checkout" type="date" required></div>
+          <div class="form-field"><label for="booking-adults">Взрослых</label><input id="booking-adults" type="number" min="1" max="40" value="2" required></div>
+          <div class="form-field"><label for="booking-children">Детей</label><input id="booking-children" type="number" min="0" max="30" value="0" required></div>
+          <div class="form-field"><label for="booking-stay">Формат отдыха</label><select id="booking-stay"><option value="overnight">С ночлегом</option><option value="day">Без ночлега</option></select></div>
+          <div class="form-field"><label for="booking-status-field">Статус</label><select id="booking-status-field"><option value="new">Новая заявка</option><option value="confirmed">Подтверждено</option><option value="paid">Оплачено</option><option value="cancelled">Отменено</option></select></div>
+          <div class="form-field"><label for="booking-checkin-time">Время заезда</label><input id="booking-checkin-time" type="time"></div>
+          <div class="form-field"><label for="booking-checkout-time">Время выезда</label><input id="booking-checkout-time" type="time"></div>
+          <div class="form-field"><label for="booking-deposit">Залог, ₽</label><input id="booking-deposit" type="number" min="0" value="0"></div>
+          <div class="form-field"><label for="booking-total">Итого, ₽</label><input id="booking-total" type="number" min="0" value="0"></div>
+          <div class="form-field"><label for="booking-source">Источник</label><select id="booking-source"><option value="site">Сайт</option><option value="whatsapp">WhatsApp</option><option value="phone">Телефон</option><option value="manual">Вручную</option></select></div>
+          <div class="form-field full"><label for="booking-notes">Заметка</label><textarea id="booking-notes" placeholder="Город, пожелания, состав компании и другие детали"></textarea></div>
+        </div>
+        <div class="form-actions"><div class="form-status" id="booking-form-status" aria-live="polite"></div><button class="primary" type="submit">Сохранить бронь</button></div>
+      </form>
+    </div>
+  </div>
   <script src="/admin.js"></script>
 </body>
 </html>

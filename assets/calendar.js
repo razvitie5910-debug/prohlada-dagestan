@@ -13,6 +13,7 @@
   var result = document.getElementById("availability-result");
   var resultTitle = document.getElementById("availability-result-title");
   var resultGuests = document.getElementById("availability-result-guests");
+  var requestButton = document.getElementById("booking-request-submit");
   var view = new Date();
   view = new Date(view.getFullYear(), view.getMonth(), 1);
   var checkin = "";
@@ -63,6 +64,10 @@
   }
 
   function updateFields() {
+    var previousSuccess = document.getElementById("booking-request-success");
+    if (previousSuccess) previousSuccess.remove();
+    requestButton.disabled = false;
+    requestButton.textContent = "Отправить заявку";
     if (checkin) {
       checkinLabel.textContent = displayDate(checkin);
       checkinTrigger.classList.remove("placeholder");
@@ -228,6 +233,47 @@
     resultTitle.textContent = displayDate(checkin) + " — " + displayDate(checkout);
     resultGuests.textContent = adults.options[adults.selectedIndex].text + ", " + children.options[children.selectedIndex].text.toLowerCase();
     result.classList.remove("hidden");
+    document.getElementById("request-name").focus();
+  });
+
+  requestButton.addEventListener("click", async function () {
+    var name = document.getElementById("request-name").value.trim();
+    var phone = document.getElementById("request-phone").value.trim();
+    if (!name || phone.length < 6) {
+      message.textContent = "Укажите имя и номер телефона, чтобы владелец мог связаться с вами.";
+      return;
+    }
+    requestButton.disabled = true;
+    requestButton.textContent = "Отправляем…";
+    message.textContent = "";
+    try {
+      var response = await fetch("/api/bookings", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          guestName: name,
+          phone: phone,
+          checkIn: checkin,
+          checkOut: checkout,
+          adults: Number(document.getElementById("adult-count").value),
+          children: Number(document.getElementById("child-count").value),
+          stayType: document.getElementById("request-stay").value,
+          notes: document.getElementById("request-notes").value
+        })
+      });
+      var data = await response.json().catch(function () { return {}; });
+      if (!response.ok) throw new Error(data.error || "Не удалось отправить заявку");
+      var success = document.createElement("div");
+      success.id = "booking-request-success";
+      success.className = "request-success";
+      success.innerHTML = '<strong>Заявка №' + (data.id || "") + ' отправлена</strong><p>Владелец увидит её в админке и свяжется с вами для подтверждения.</p>';
+      result.insertBefore(success, result.firstChild);
+      requestButton.textContent = "Заявка отправлена";
+    } catch (error) {
+      message.textContent = error.message;
+      requestButton.disabled = false;
+      requestButton.textContent = "Отправить заявку";
+    }
   });
 
   updateFields();
