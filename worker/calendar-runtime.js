@@ -245,14 +245,20 @@ async function adminBookings(request, env, url) {
     const result = await env.DB.prepare(query).bind(...values).all();
     return json({ bookings: (result.results || []).map(bookingRow) });
   }
+  const match = url.pathname.match(/^\/api\/admin\/bookings\/(\d+)$/);
+  const id = match ? Number(match[1]) : 0;
+  if (request.method === "DELETE" && id) {
+    const existing = await env.DB.prepare("SELECT id FROM bookings WHERE id = ?1").bind(id).first();
+    if (!existing) return json({ error: "Бронь не найдена" }, 404);
+    await env.DB.prepare("DELETE FROM bookings WHERE id = ?1").bind(id).run();
+    return json({ ok: true });
+  }
   let body;
   try { body = await readBody(request); } catch (error) { return json({ error: "Некорректный запрос" }, 400); }
   const normalized = normalizeBooking(body, false);
   if (normalized.error) return json({ error: normalized.error }, 400);
   const item = normalized.booking;
   const now = new Date().toISOString();
-  const match = url.pathname.match(/^\/api\/admin\/bookings\/(\d+)$/);
-  const id = match ? Number(match[1]) : 0;
   if ((item.status === "confirmed" || item.status === "paid") && await conflicts(env, item, id)) {
     return json({ error: "Эти даты уже заняты другой подтверждённой бронью" }, 409);
   }
@@ -344,7 +350,7 @@ async function route(request, env) {
   if (path === "/api/admin/availability" && (request.method === "PUT" || request.method === "DELETE")) {
     return adminUpdate(request, env);
   }
-  if ((path === "/api/admin/bookings" && (request.method === "GET" || request.method === "POST")) || (/^\/api\/admin\/bookings\/\d+$/.test(path) && request.method === "PUT")) {
+  if ((path === "/api/admin/bookings" && (request.method === "GET" || request.method === "POST")) || (/^\/api\/admin\/bookings\/\d+$/.test(path) && (request.method === "PUT" || request.method === "DELETE"))) {
     return adminBookings(request, env, url);
   }
   if (path.startsWith("/api/")) return json({ error: "Не найдено" }, 404);

@@ -13,6 +13,7 @@
   var bookingModal = document.getElementById("booking-modal");
   var bookingForm = document.getElementById("booking-form");
   var bookingFormStatus = document.getElementById("booking-form-status");
+  var deleteBookingButton = document.getElementById("delete-booking");
   var current = new Date();
   current = new Date(current.getFullYear(), current.getMonth(), 1);
   var statuses = {};
@@ -132,6 +133,7 @@
     field("booking-source").value = item ? item.source : "manual";
     field("booking-notes").value = item ? item.notes : "";
     document.getElementById("booking-dialog-title").textContent = item ? "Бронь №" + item.id : "Новая бронь";
+    deleteBookingButton.classList.toggle("hidden", !item);
     bookingFormStatus.textContent = "";
   }
 
@@ -152,6 +154,23 @@
       await responseJson(await fetch(id ? "/api/admin/bookings/" + id : "/api/admin/bookings", { method: id ? "PUT" : "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(bookingPayload()) }));
       closeBooking(); await Promise.all([loadBookings(), loadMonth()]);
     } catch (error) { bookingFormStatus.textContent = error.message; }
+  });
+
+  deleteBookingButton.addEventListener("click", async function () {
+    var id = field("booking-id").value;
+    var item = bookings.find(function (booking) { return String(booking.id) === String(id); });
+    if (!id || !window.confirm("Удалить заявку" + (item ? " гостя «" + item.guestName + "»" : "") + "? Восстановить её будет нельзя.")) return;
+    deleteBookingButton.disabled = true;
+    bookingFormStatus.textContent = "Удаляем…";
+    try {
+      await responseJson(await fetch("/api/admin/bookings/" + id, { method: "DELETE" }));
+      closeBooking();
+      await Promise.all([loadBookings(), loadMonth()]);
+    } catch (error) {
+      bookingFormStatus.textContent = error.message;
+    } finally {
+      deleteBookingButton.disabled = false;
+    }
   });
 
   function showAdmin() { loginCard.classList.add("hidden"); panel.classList.remove("hidden"); logoutButton.classList.remove("hidden"); Promise.all([loadBookings(), loadMonth()]).catch(function (error) { statusLine.textContent = error.message; }); }
