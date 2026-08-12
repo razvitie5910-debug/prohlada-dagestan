@@ -75,6 +75,18 @@ export default function Home() {
           <a href="#contacts">Контакты</a>
         </nav>
 
+        <details className="mobile-menu">
+          <summary aria-label="Открыть меню">Меню</summary>
+          <div className="mobile-menu-panel">
+            <a href="#about">О месте</a>
+            <a href="#amenities">Удобства</a>
+            <a href="#calendar">Свободные даты</a>
+            <a href="#prices">Цены</a>
+            <a href="#contacts">Контакты</a>
+            <a className="mobile-booking" href="#calendar">Забронировать</a>
+          </div>
+        </details>
+
         <a className="header-cta" href={phoneUrl}>
           Забронировать
         </a>

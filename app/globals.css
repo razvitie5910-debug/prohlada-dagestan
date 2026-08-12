@@ -120,6 +120,75 @@ footer > a:hover {
   transform: translateY(-2px);
 }
 
+.mobile-menu {
+  display: none;
+  position: relative;
+}
+
+.mobile-menu summary {
+  min-width: 48px;
+  height: 44px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: white;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  list-style: none;
+}
+
+.mobile-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.mobile-menu summary::after {
+  content: "☰";
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.mobile-menu[open] summary::after {
+  content: "×";
+  font-size: 24px;
+}
+
+.mobile-menu-panel {
+  width: 245px;
+  padding: 10px;
+  position: absolute;
+  z-index: 30;
+  top: 56px;
+  right: 0;
+  display: grid;
+  gap: 4px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(251, 250, 246, 0.99);
+  box-shadow: 0 22px 55px rgba(32, 37, 31, 0.18);
+}
+
+.mobile-menu-panel a {
+  padding: 14px 15px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.mobile-menu-panel a:hover {
+  background: var(--cream);
+}
+
+.mobile-menu-panel .mobile-booking {
+  margin-top: 4px;
+  background: var(--green);
+  color: white;
+  font-weight: 700;
+}
+
 .hero {
   width: min(1440px, calc(100% - 64px));
   min-height: 720px;
@@ -695,6 +764,10 @@ footer > a {
     display: none;
   }
 
+  .mobile-menu {
+    display: block;
+  }
+
   .hero {
     min-height: auto;
     grid-template-columns: 1fr 1fr;
@@ -760,8 +833,7 @@ footer > a {
   }
 
   .header-cta {
-    padding: 11px 14px;
-    font-size: 10px;
+    display: none;
   }
 
   .hero {
