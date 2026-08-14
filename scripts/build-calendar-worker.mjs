@@ -13,9 +13,21 @@ const publicJs = await read("assets/calendar.js");
 let adminHtml = await read("assets/admin.html");
 const adminJs = await read("assets/admin.js");
 const runtime = await read("worker/calendar-runtime.js");
-const photo = await readFile(new URL("public/prohlada-cottage.png", root));
+const photoFiles = {
+  "/prohlada-pool-cottage.jpg": "public/prohlada-pool-cottage.jpg",
+  "/prohlada-loungers.jpg": "public/prohlada-loungers.jpg",
+  "/prohlada-gazebo.jpg": "public/prohlada-gazebo.jpg",
+  "/prohlada-night.jpg": "public/prohlada-night.jpg",
+  "/prohlada-chan.jpg": "public/prohlada-chan.jpg"
+};
+const photoAssets = Object.fromEntries(await Promise.all(
+  Object.entries(photoFiles).map(async ([route, file]) => [
+    route,
+    { type: "image/jpeg", data: (await readFile(new URL(file, root))).toString("base64") }
+  ])
+));
 
-publicHtml = publicHtml.replaceAll("../public/prohlada-cottage.png", "/prohlada-cottage.png");
+publicHtml = publicHtml.replaceAll("../public/", "/");
 publicHtml = publicHtml.replace(
   '<a href="#prices">Цены</a>',
   '<a href="#calendar">Свободные даты</a><a href="#prices">Цены</a>'
@@ -52,7 +64,7 @@ const constants = [
   "const CALENDAR_CSS = " + JSON.stringify(calendarCss) + ";",
   "const PUBLIC_JS = " + JSON.stringify(publicJs) + ";",
   "const ADMIN_JS = " + JSON.stringify(adminJs) + ";",
-  "const PHOTO_BASE64 = " + JSON.stringify(photo.toString("base64")) + ";",
+  "const PHOTO_ASSETS = " + JSON.stringify(photoAssets) + ";",
   "const FAVICON = " + JSON.stringify(favicon) + ";"
 ].join("\n");
 

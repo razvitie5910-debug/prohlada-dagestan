@@ -471,6 +471,54 @@ footer > a:hover {
   line-height: 1.55;
 }
 
+.place-photo {
+  height: 430px;
+  margin: 24px 0 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 26px;
+  box-shadow: 0 22px 52px rgba(45, 56, 45, 0.13);
+}
+
+.place-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 58%;
+}
+
+.place-photo::after {
+  content: "";
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(transparent, rgba(15, 22, 16, 0.72));
+}
+
+.place-photo figcaption {
+  position: absolute;
+  z-index: 1;
+  right: 34px;
+  bottom: 30px;
+  left: 34px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 30px;
+  color: white;
+}
+
+.place-photo strong {
+  font: 700 34px Georgia, "Times New Roman", serif;
+}
+
+.place-photo span {
+  max-width: 380px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.55;
+  text-align: right;
+}
+
 .amenities-section {
   padding: 110px 0 130px;
 }
@@ -546,6 +594,38 @@ footer > a:hover {
   line-height: 1.6;
 }
 
+.amenity-photo {
+  min-height: 360px;
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.amenity-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(12, 18, 13, 0.08) 20%, rgba(12, 18, 13, 0.84) 100%);
+}
+
+.amenity-photo > img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+}
+
+.amenity-photo > span,
+.amenity-photo > div {
+  position: relative;
+  z-index: 1;
+}
+
+.amenity-photo p {
+  color: rgba(255, 255, 255, 0.88);
+}
+
 .feature-band {
   min-height: 680px;
   display: grid;
@@ -556,9 +636,7 @@ footer > a:hover {
 
 .feature-image {
   min-height: 680px;
-  background:
-    linear-gradient(90deg, transparent 70%, var(--green) 100%),
-    url("/prohlada-cottage.png") 50% 72% / 152% auto no-repeat;
+  background: #202a22 url("/prohlada-chan.jpg") center 42% / cover no-repeat;
 }
 
 .feature-copy {
@@ -597,6 +675,55 @@ footer > a:hover {
   position: absolute;
   left: 0;
   color: #d6aa83;
+}
+
+.night-story {
+  width: min(1320px, calc(100% - 64px));
+  height: 560px;
+  margin: 72px auto 20px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  color: white;
+  box-shadow: 0 26px 68px rgba(22, 28, 23, 0.18);
+}
+
+.night-story > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.night-story::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(12, 17, 13, 0.8), rgba(12, 17, 13, 0.08) 68%);
+}
+
+.night-story-copy {
+  max-width: 570px;
+  position: absolute;
+  z-index: 1;
+  left: 64px;
+  bottom: 58px;
+}
+
+.night-story .section-kicker {
+  color: #e1b58f;
+}
+
+.night-story h2 {
+  margin: 0;
+  font: 600 clamp(46px, 4.5vw, 70px) / 1.02 Georgia, "Times New Roman", serif;
+}
+
+.night-story-copy > p:last-child {
+  max-width: 480px;
+  margin: 22px 0 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 600;
+  line-height: 1.65;
 }
 
 .pricing {
@@ -942,6 +1069,33 @@ footer > a {
     gap: 38px 22px;
   }
 
+  .place-photo {
+    height: 450px;
+    margin-top: 16px;
+    border-radius: 22px;
+  }
+
+  .place-photo img {
+    object-position: 42% center;
+  }
+
+  .place-photo figcaption {
+    right: 22px;
+    bottom: 22px;
+    left: 22px;
+    display: block;
+  }
+
+  .place-photo strong {
+    font-size: 29px;
+  }
+
+  .place-photo span {
+    display: block;
+    margin-top: 8px;
+    text-align: left;
+  }
+
   .amenities-section {
     padding: 80px 0 90px;
   }
@@ -965,14 +1119,37 @@ footer > a {
   }
 
   .feature-image {
-    min-height: 480px;
-    background:
-      linear-gradient(180deg, transparent 72%, var(--green) 100%),
-      url("/prohlada-cottage.png") 54% 72% / auto 112% no-repeat;
+    min-height: 520px;
+    background: #202a22 url("/prohlada-chan.jpg") center 38% / cover no-repeat;
   }
 
   .feature-copy {
     padding: 50px 24px 80px;
+  }
+
+  .night-story {
+    width: calc(100% - 32px);
+    height: 530px;
+    margin-top: 48px;
+    border-radius: 22px;
+  }
+
+  .night-story > img {
+    object-position: 58% center;
+  }
+
+  .night-story::after {
+    background: linear-gradient(180deg, rgba(12, 17, 13, 0.05) 20%, rgba(12, 17, 13, 0.86) 100%);
+  }
+
+  .night-story-copy {
+    right: 24px;
+    bottom: 34px;
+    left: 24px;
+  }
+
+  .night-story h2 {
+    font-size: clamp(40px, 11vw, 56px);
   }
 
   .pricing {

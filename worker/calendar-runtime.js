@@ -328,11 +328,12 @@ async function route(request, env) {
   if (path === "/favicon.svg") {
     return asset(FAVICON, "image/svg+xml; charset=utf-8");
   }
-  if (path === "/prohlada-cottage.png") {
-    const binary = atob(PHOTO_BASE64);
+  if (PHOTO_ASSETS[path]) {
+    const photo = PHOTO_ASSETS[path];
+    const binary = atob(photo.data);
     const bytes = new Uint8Array(binary.length);
     for (let index = 0; index < binary.length; index += 1) bytes[index] = binary.charCodeAt(index);
-    return new Response(bytes, { headers: { "content-type": "image/png", "cache-control": "public, max-age=31536000, immutable" } });
+    return new Response(bytes, { headers: { "content-type": photo.type, "cache-control": "public, max-age=31536000, immutable" } });
   }
   if (path === "/calendar.css") return asset(CALENDAR_CSS, "text/css; charset=utf-8");
   if (path === "/calendar.js") return asset(PUBLIC_JS, "text/javascript; charset=utf-8");

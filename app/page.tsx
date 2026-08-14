@@ -6,31 +6,37 @@ const amenities = [
     number: "01",
     title: "Коттеджи у воды",
     text: "Уютные дома с видом на водопад и 20 комфортными спальными местами.",
+    image: null,
   },
   {
     number: "02",
     title: "Бассейны",
     text: "Большой бассейн с водопадом и отдельный безопасный бассейн для детей.",
+    image: null,
   },
   {
     number: "03",
     title: "Баня и чан",
     text: "Банный комплекс и лечебный чан для глубокого отдыха в любое время года.",
+    image: null,
   },
   {
     number: "04",
     title: "Всё для застолья",
     text: "Просторные беседки, топчан, мангальная зона, очаг и необходимая посуда.",
+    image: "/prohlada-gazebo.jpg",
   },
   {
     number: "05",
     title: "Для всей семьи",
     text: "Качели, детская площадка, шезлонги и волейбольная площадка.",
+    image: null,
   },
   {
     number: "06",
     title: "Полная приватность",
     text: "Вся большая территория — только для вашей компании, без посторонних.",
+    image: null,
   },
 ];
 
@@ -129,8 +135,8 @@ export default function Home() {
 
         <div className="hero-media">
           <img
-            src="/prohlada-cottage.png"
-            alt="Коттедж гостевого дома Прохлада у бассейна с водопадом"
+            src="/prohlada-pool-cottage.jpg"
+            alt="Красный коттедж и бассейн с водопадом в гостевом доме Прохлада"
           />
           <div className="hero-badge">
             <span>Вода</span>
@@ -182,6 +188,13 @@ export default function Home() {
             <p>До 20 комфортных спальных мест.</p>
           </div>
         </div>
+        <figure className="place-photo">
+          <img src="/prohlada-loungers.jpg" alt="Шезлонги и зона отдыха среди зелени" />
+          <figcaption>
+            <strong>Место для неспешного дня</strong>
+            <span>Отдыхайте у воды, в тени деревьев или всей компанией у очага.</span>
+          </figcaption>
+        </figure>
       </section>
 
       <section className="amenities-section" id="amenities">
@@ -198,7 +211,8 @@ export default function Home() {
 
         <div className="amenities-grid">
           {amenities.map((item) => (
-            <article className="amenity-card" key={item.number}>
+            <article className={`amenity-card${item.image ? " amenity-photo" : ""}`} key={item.number}>
+              {item.image ? <img src={item.image} alt="Большая освещённая беседка со столами" /> : null}
               <span>{item.number}</span>
               <div>
                 <h3>{item.title}</h3>
@@ -210,19 +224,28 @@ export default function Home() {
       </section>
 
       <section className="feature-band">
-        <div className="feature-image" role="img" aria-label="Водопад у бассейна гостевого дома Прохлада" />
+        <div className="feature-image" role="img" aria-label="Гости отдыхают в лечебном банном чане" />
         <div className="feature-copy">
-          <p className="section-kicker">Главное впечатление</p>
-          <h2>Свой маленький водопад</h2>
+          <p className="section-kicker">Тепло круглый год</p>
+          <h2>Банный чан под открытым небом</h2>
           <p>
-            Вода задаёт ритм всему пространству: освежает днём, успокаивает
-            вечером и создаёт ту самую атмосферу «Прохлады».
+            После насыщенного дня можно согреться в лечебном чане, попариться
+            и спокойно продолжить вечер среди природы.
           </p>
           <ul>
-            <li>бассейн с пресной чистой водой</li>
-            <li>отдельная зона для детей</li>
-            <li>шезлонги и места для отдыха рядом</li>
+            <li>банный лечебный чан</li>
+            <li>парилка и зона отдыха</li>
+            <li>приватная атмосфера для своей компании</li>
           </ul>
+        </div>
+      </section>
+
+      <section className="night-story">
+        <img src="/prohlada-night.jpg" alt="Освещённые беседки на территории Прохлады вечером" />
+        <div className="night-story-copy">
+          <p className="section-kicker">Вечерняя атмосфера</p>
+          <h2>Тихо, тепло и только свои</h2>
+          <p>После заката загораются огни в беседках, а вся территория остаётся в распоряжении вашей компании.</p>
         </div>
       </section>
 
