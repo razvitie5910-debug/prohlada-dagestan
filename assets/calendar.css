@@ -305,6 +305,9 @@
 .booking-request-submit { width: 100%; margin-top: 16px; padding: 15px; border: 0; border-radius: 999px; background: #2d382d; color: #fff; cursor: pointer; font: 700 13px Arial,sans-serif; }
 .booking-request-submit:disabled { opacity: .65; cursor: wait; }
 .request-consent { margin: 10px 0 0; color: #72766f; font-size: 11px; text-align: center; }
+.request-consent-check { margin-top: 16px; display: flex; align-items: flex-start; gap: 10px; color: #4f574f; font-size: 12px; font-weight: 600; line-height: 1.45; }
+.request-consent-check input { width: 18px; height: 18px; margin: 0; flex: 0 0 auto; accent-color: #2d382d; }
+.request-consent-check a { color: #79523b; text-decoration: underline; text-underline-offset: 2px; }
 .request-success { padding: 26px; border: 1px solid #b8c9b7; background: #e8f0e6; color: #2e4a32; text-align: center; }
 
 .availability-result strong,

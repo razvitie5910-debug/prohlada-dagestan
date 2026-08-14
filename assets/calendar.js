@@ -254,7 +254,7 @@
     resultTitle.textContent = displayDate(checkin) + " — " + displayDate(checkout);
     resultGuests.textContent = adults.options[adults.selectedIndex].text + ", " + children.options[children.selectedIndex].text.toLowerCase();
     result.classList.remove("hidden");
-    message.textContent = "Даты свободны. Заполните ФИО и телефон ниже.";
+    message.textContent = "Даты свободны. Заполните ФИО, телефон и место проживания ниже.";
     window.setTimeout(function () {
       result.scrollIntoView({ behavior: "smooth", block: "center" });
       document.getElementById("request-name").focus({ preventScroll: true });
@@ -264,8 +264,14 @@
   requestButton.addEventListener("click", async function () {
     var name = document.getElementById("request-name").value.trim();
     var phone = document.getElementById("request-phone").value.trim();
-    if (!name || phone.length < 6) {
-      message.textContent = "Укажите полностью фамилию, имя, отчество и номер телефона.";
+    var residence = document.getElementById("request-residence").value.trim();
+    var consent = document.getElementById("request-consent");
+    if (!name || phone.length < 6 || !residence) {
+      message.textContent = "Укажите полностью фамилию, имя, отчество, номер телефона и место проживания.";
+      return;
+    }
+    if (!consent.checked) {
+      message.textContent = "Подтвердите согласие на обработку и передачу данных в WhatsApp.";
       return;
     }
     requestButton.disabled = true;
@@ -279,6 +285,8 @@
     var bookingPayload = {
       guestName: name,
       phone: phone,
+      residence: residence,
+      consentAccepted: consent.checked,
       checkIn: checkin,
       checkOut: checkout,
       adults: adultCount,
@@ -307,6 +315,7 @@
         data.id ? "Заявка №" + data.id : "",
         "ФИО: " + name,
         "Телефон: " + phone,
+        "Место проживания: " + residence,
         "Заезд: " + displayDate(checkin) + ", с 13:00",
         "Выезд: " + displayDate(checkout) + ", до 10:30",
         "Гости: " + adultCount + " взрослых, " + childCount + " детей",

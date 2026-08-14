@@ -96,6 +96,7 @@
         <div class="form-grid">
           <div class="form-field"><label for="booking-name">ФИО гостя</label><input id="booking-name" required></div>
           <div class="form-field"><label for="booking-phone">Телефон</label><input id="booking-phone" type="tel" required></div>
+          <div class="form-field full"><label for="booking-residence">Место проживания</label><input id="booking-residence" required placeholder="Город или населённый пункт"></div>
           <div class="form-field"><label for="booking-checkin">Дата заезда</label><input id="booking-checkin" type="date" required></div>
           <div class="form-field"><label for="booking-checkout">Дата выезда</label><input id="booking-checkout" type="date" required></div>
           <div class="form-field"><label for="booking-adults">Взрослых</label><input id="booking-adults" type="number" min="1" max="40" value="2" required></div>
@@ -107,7 +108,7 @@
           <div class="form-field"><label for="booking-deposit">Залог, ₽</label><input id="booking-deposit" type="number" min="0" value="0"></div>
           <div class="form-field"><label for="booking-total">Итого, ₽</label><input id="booking-total" type="number" min="0" value="0"></div>
           <div class="form-field"><label for="booking-source">Источник</label><select id="booking-source"><option value="site">Сайт</option><option value="whatsapp">WhatsApp</option><option value="phone">Телефон</option><option value="manual">Вручную</option></select></div>
-          <div class="form-field full"><label for="booking-notes">Заметка</label><textarea id="booking-notes" placeholder="Город, пожелания, состав компании и другие детали"></textarea></div>
+          <div class="form-field full"><label for="booking-notes">Заметка</label><textarea id="booking-notes" placeholder="Пожелания, состав компании и другие детали"></textarea></div>
         </div>
         <div class="form-actions"><div class="form-status" id="booking-form-status" aria-live="polite"></div><div class="dialog-buttons"><button class="danger hidden" id="delete-booking" type="button">Удалить заявку</button><button class="primary" type="submit">Сохранить бронь</button></div></div>
       </form>

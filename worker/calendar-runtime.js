@@ -43,7 +43,7 @@ async function ensureSchema(env) {
   if (!schemaReady) {
     const statements = [
       env.DB.prepare("CREATE TABLE IF NOT EXISTS availability (date TEXT PRIMARY KEY NOT NULL, status TEXT NOT NULL CHECK (status IN ('available','booked','closed')), updated_at TEXT NOT NULL)"),
-      env.DB.prepare("CREATE TABLE IF NOT EXISTS bookings (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, guest_name TEXT NOT NULL, phone TEXT NOT NULL, check_in TEXT NOT NULL, check_out TEXT NOT NULL, adults INTEGER NOT NULL DEFAULT 1, children INTEGER NOT NULL DEFAULT 0, stay_type TEXT NOT NULL DEFAULT 'overnight' CHECK (stay_type IN ('day','overnight')), checkin_time TEXT NOT NULL DEFAULT '', checkout_time TEXT NOT NULL DEFAULT '', deposit INTEGER NOT NULL DEFAULT 0, total INTEGER NOT NULL DEFAULT 0, status TEXT NOT NULL DEFAULT 'new' CHECK (status IN ('new','confirmed','paid','cancelled')), notes TEXT NOT NULL DEFAULT '', source TEXT NOT NULL DEFAULT 'site' CHECK (source IN ('site','manual','whatsapp','phone')), created_at TEXT NOT NULL, updated_at TEXT NOT NULL)"),
+      env.DB.prepare("CREATE TABLE IF NOT EXISTS bookings (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, guest_name TEXT NOT NULL, phone TEXT NOT NULL, residence TEXT NOT NULL DEFAULT '', check_in TEXT NOT NULL, check_out TEXT NOT NULL, adults INTEGER NOT NULL DEFAULT 1, children INTEGER NOT NULL DEFAULT 0, stay_type TEXT NOT NULL DEFAULT 'overnight' CHECK (stay_type IN ('day','overnight')), checkin_time TEXT NOT NULL DEFAULT '', checkout_time TEXT NOT NULL DEFAULT '', deposit INTEGER NOT NULL DEFAULT 0, total INTEGER NOT NULL DEFAULT 0, status TEXT NOT NULL DEFAULT 'new' CHECK (status IN ('new','confirmed','paid','cancelled')), notes TEXT NOT NULL DEFAULT '', source TEXT NOT NULL DEFAULT 'site' CHECK (source IN ('site','manual','whatsapp','phone')), created_at TEXT NOT NULL, updated_at TEXT NOT NULL)"),
       env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_bookings_dates ON bookings (check_in, check_out)"),
       env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_bookings_status_check_in ON bookings (status, check_in)")
     ];
@@ -172,6 +172,8 @@ function normalizeBooking(body, publicRequest) {
   const booking = {
     guestName: cleanText(body.guestName, 100),
     phone: cleanText(body.phone, 40),
+    residence: cleanText(body.residence, 160),
+    consentAccepted: body.consentAccepted === true,
     checkIn: cleanText(body.checkIn, 10),
     checkOut: cleanText(body.checkOut, 10),
     adults: cleanInteger(body.adults, 1, 40),
@@ -193,7 +195,8 @@ function normalizeBooking(body, publicRequest) {
     booking.checkinTime = booking.checkinTime || "13:00";
     booking.checkoutTime = booking.checkoutTime || "10:30";
   }
-  if (!booking.guestName || booking.phone.length < 6) return { error: "Укажите фамилию, имя, отчество и номер телефона" };
+  if (!booking.guestName || booking.phone.length < 6 || !booking.residence) return { error: "Укажите фамилию, имя, отчество, номер телефона и место проживания" };
+  if (publicRequest && !booking.consentAccepted) return { error: "Подтвердите согласие на обработку и передачу данных в WhatsApp" };
   if (!validDate(booking.checkIn) || !validDate(booking.checkOut) || booking.checkIn >= booking.checkOut) return { error: "Некорректные даты" };
   if (booking.adults == null || booking.children == null || booking.deposit == null || booking.total == null) return { error: "Некорректные числовые данные" };
   const days = (new Date(booking.checkOut + "T00:00:00Z") - new Date(booking.checkIn + "T00:00:00Z")) / 86400000;
@@ -225,14 +228,14 @@ async function publicCreateBooking(request, env) {
   const item = normalized.booking;
   const now = new Date().toISOString();
   const result = await env.DB.prepare(
-    "INSERT INTO bookings (guest_name, phone, check_in, check_out, adults, children, stay_type, checkin_time, checkout_time, deposit, total, status, notes, source, created_at, updated_at) VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16)"
-  ).bind(item.guestName, item.phone, item.checkIn, item.checkOut, item.adults, item.children, item.stayType, item.checkinTime, item.checkoutTime, item.deposit, item.total, item.status, item.notes, item.source, now, now).run();
+    "INSERT INTO bookings (guest_name, phone, residence, check_in, check_out, adults, children, stay_type, checkin_time, checkout_time, deposit, total, status, notes, source, created_at, updated_at) VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17)"
+  ).bind(item.guestName, item.phone, item.residence, item.checkIn, item.checkOut, item.adults, item.children, item.stayType, item.checkinTime, item.checkoutTime, item.deposit, item.total, item.status, item.notes, item.source, now, now).run();
   return json({ ok: true, id: result.meta && result.meta.last_row_id }, 201);
 }
 
 function bookingRow(row) {
   return {
-    id: row.id, guestName: row.guest_name, phone: row.phone, checkIn: row.check_in, checkOut: row.check_out,
+    id: row.id, guestName: row.guest_name, phone: row.phone, residence: row.residence, checkIn: row.check_in, checkOut: row.check_out,
     adults: row.adults, children: row.children, stayType: row.stay_type, checkinTime: row.checkin_time,
     checkoutTime: row.checkout_time, deposit: row.deposit, total: row.total, status: row.status,
     notes: row.notes, source: row.source, createdAt: row.created_at, updatedAt: row.updated_at
@@ -270,16 +273,16 @@ async function adminBookings(request, env, url) {
   }
   if (request.method === "POST" && url.pathname === "/api/admin/bookings") {
     const created = await env.DB.prepare(
-      "INSERT INTO bookings (guest_name, phone, check_in, check_out, adults, children, stay_type, checkin_time, checkout_time, deposit, total, status, notes, source, created_at, updated_at) VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16)"
-    ).bind(item.guestName, item.phone, item.checkIn, item.checkOut, item.adults, item.children, item.stayType, item.checkinTime, item.checkoutTime, item.deposit, item.total, item.status, item.notes, item.source, now, now).run();
+      "INSERT INTO bookings (guest_name, phone, residence, check_in, check_out, adults, children, stay_type, checkin_time, checkout_time, deposit, total, status, notes, source, created_at, updated_at) VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9,?10,?11,?12,?13,?14,?15,?16,?17)"
+    ).bind(item.guestName, item.phone, item.residence, item.checkIn, item.checkOut, item.adults, item.children, item.stayType, item.checkinTime, item.checkoutTime, item.deposit, item.total, item.status, item.notes, item.source, now, now).run();
     return json({ ok: true, id: created.meta && created.meta.last_row_id }, 201);
   }
   if (request.method === "PUT" && id) {
     const existing = await env.DB.prepare("SELECT id FROM bookings WHERE id = ?1").bind(id).first();
     if (!existing) return json({ error: "Бронь не найдена" }, 404);
     await env.DB.prepare(
-      "UPDATE bookings SET guest_name=?1, phone=?2, check_in=?3, check_out=?4, adults=?5, children=?6, stay_type=?7, checkin_time=?8, checkout_time=?9, deposit=?10, total=?11, status=?12, notes=?13, source=?14, updated_at=?15 WHERE id=?16"
-    ).bind(item.guestName, item.phone, item.checkIn, item.checkOut, item.adults, item.children, item.stayType, item.checkinTime, item.checkoutTime, item.deposit, item.total, item.status, item.notes, item.source, now, id).run();
+      "UPDATE bookings SET guest_name=?1, phone=?2, residence=?3, check_in=?4, check_out=?5, adults=?6, children=?7, stay_type=?8, checkin_time=?9, checkout_time=?10, deposit=?11, total=?12, status=?13, notes=?14, source=?15, updated_at=?16 WHERE id=?17"
+    ).bind(item.guestName, item.phone, item.residence, item.checkIn, item.checkOut, item.adults, item.children, item.stayType, item.checkinTime, item.checkoutTime, item.deposit, item.total, item.status, item.notes, item.source, now, id).run();
     return json({ ok: true });
   }
   return json({ error: "Не найдено" }, 404);

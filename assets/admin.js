@@ -102,7 +102,7 @@
       var times = (item.checkinTime || item.checkoutTime) ? " · " + (item.checkinTime || "—") + " / " + (item.checkoutTime || "—") : "";
       return '<article class="booking-card" data-booking-id="' + item.id + '">' +
         '<div class="booking-date">' + escapeHtml(displayDate(item.checkIn)) + '<small>до ' + escapeHtml(displayDate(item.checkOut)) + '</small></div>' +
-        '<div><h3 class="booking-name">' + escapeHtml(item.guestName) + '</h3><div class="booking-meta"><span>' + escapeHtml(item.phone) + '</span><span>' + people + '</span><span>' + (item.stayType === "day" ? "без ночлега" : "с ночлегом") + times + '</span><span>' + escapeHtml(sourceNames[item.source] || item.source) + '</span>' + (item.deposit ? '<span>залог ' + money(item.deposit) + '</span>' : '') + (item.total ? '<span>остаток ' + money(Math.max(0, item.total - item.deposit)) + '</span>' : '') + '</div>' +
+        '<div><h3 class="booking-name">' + escapeHtml(item.guestName) + '</h3><div class="booking-meta"><span>' + escapeHtml(item.phone) + '</span>' + (item.residence ? '<span>Место проживания: ' + escapeHtml(item.residence) + '</span>' : '') + '<span>' + people + '</span><span>' + (item.stayType === "day" ? "без ночлега" : "с ночлегом") + times + '</span><span>' + escapeHtml(sourceNames[item.source] || item.source) + '</span>' + (item.deposit ? '<span>залог ' + money(item.deposit) + '</span>' : '') + (item.total ? '<span>остаток ' + money(Math.max(0, item.total - item.deposit)) + '</span>' : '') + '</div>' +
         (item.notes ? '<p class="booking-note">' + escapeHtml(item.notes) + '</p>' : '') + '</div>' +
         '<div class="booking-side"><span class="booking-number">Заявка №' + item.id + '</span><span class="status-pill status-' + item.status + '">' + statusNames[item.status] + '</span><strong class="booking-price">' + money(item.total) + '</strong><button class="quiet edit-booking" type="button">Открыть</button></div></article>';
     }).join("");
@@ -120,6 +120,7 @@
     field("booking-id").value = item ? item.id : "";
     field("booking-name").value = item ? item.guestName : "";
     field("booking-phone").value = item ? item.phone : "";
+    field("booking-residence").value = item ? (item.residence || "") : "";
     field("booking-checkin").value = item ? item.checkIn : "";
     field("booking-checkout").value = item ? item.checkOut : "";
     field("booking-adults").value = item ? item.adults : 2;
@@ -141,7 +142,7 @@
   function closeBooking() { bookingModal.classList.add("hidden"); document.body.style.overflow = ""; }
 
   function bookingPayload() {
-    return { guestName: field("booking-name").value, phone: field("booking-phone").value, checkIn: field("booking-checkin").value, checkOut: field("booking-checkout").value,
+    return { guestName: field("booking-name").value, phone: field("booking-phone").value, residence: field("booking-residence").value, checkIn: field("booking-checkin").value, checkOut: field("booking-checkout").value,
       adults: Number(field("booking-adults").value), children: Number(field("booking-children").value), stayType: field("booking-stay").value,
       status: field("booking-status-field").value, checkinTime: field("booking-checkin-time").value, checkoutTime: field("booking-checkout-time").value,
       deposit: Number(field("booking-deposit").value), total: Number(field("booking-total").value), source: field("booking-source").value, notes: field("booking-notes").value };
