@@ -223,6 +223,24 @@
   appearance: auto;
 }
 
+.stay-times {
+  margin-top: 14px;
+  padding: 13px 15px;
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  border-radius: 4px;
+  background: #e4e8df;
+  color: #394239;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.stay-times strong {
+  margin-right: 5px;
+  color: #20251f;
+}
+
 .date-trigger.placeholder span:first-child {
   color: #8a8e87;
 }
@@ -423,13 +441,17 @@
 }
 
 .dialog-footer {
-  margin-top: 22px;
-  padding-top: 18px;
+  position: sticky;
+  z-index: 5;
+  top: -30px;
+  margin: 0 0 20px;
+  padding: 14px 0 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  border-top: 1px solid rgba(32, 37, 31, 0.16);
+  border-bottom: 1px solid rgba(32, 37, 31, 0.16);
+  background: #f3f1eb;
 }
 
 .dialog-footer p {
@@ -465,7 +487,9 @@
   .month-panels { grid-template-columns: 1fr; }
   .month-panel + .month-panel { display: none; }
   .month-day { min-height: 47px; padding: 6px 2px; }
-  .dialog-footer { align-items: flex-start; flex-direction: column; }
+  .dialog-footer { top: -20px; padding-top: 10px; align-items: stretch; flex-direction: row; }
+  .dialog-footer p { align-self: center; }
+  .stay-times { justify-content: space-between; gap: 12px; }
   .availability-result { align-items: flex-start; flex-direction: column; }
   .availability-result a { width: 100%; text-align: center; }
   .request-heading { align-items: flex-start; flex-direction: column; }

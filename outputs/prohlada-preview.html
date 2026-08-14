@@ -45,6 +45,17 @@
     @media(max-width:800px){.wrap,.hero,.booking{width:calc(100% - 32px)}header{height:78px}header.wrap{width:100%;padding:0 16px}.pill{display:none}.hero{display:flex;flex-direction:column;padding:12px;border-radius:0 0 26px 26px}.hero-copy{padding:42px 10px 10px}h1{font-size:clamp(52px,15.5vw,76px)}.hero h1 em{font-size:.68em}.actions{width:100%;flex-direction:column;align-items:stretch}.button{width:100%;justify-content:space-between}.facts{margin-top:35px;grid-template-columns:1fr;gap:8px}.facts>div{min-height:72px;flex-direction:row;align-items:center;justify-content:space-between}.facts span{max-width:135px;margin:0;text-align:right}.hero-photo{min-height:510px;border-radius:20px 20px 20px 52px}.intro-grid,.heading,.feature,.booking{grid-template-columns:1fr}.values{grid-template-columns:1fr;gap:14px}.values>div{min-height:190px}.cards{grid-template-columns:1fr}.feature{display:flex;flex-direction:column}.feature-photo{min-height:470px;background:linear-gradient(180deg,transparent 72%,var(--green)),url("../public/prohlada-cottage.png") 54% 72%/auto 112% no-repeat}.feature-copy{padding:50px 24px 75px}.prices{grid-template-columns:1fr}.price,.capacity{min-height:410px}.booking{padding:55px 24px;gap:40px}footer{min-height:200px;flex-direction:column;align-items:flex-start;justify-content:center}}
     @media(max-width:800px){.booking{width:100%;padding:66px 20px 28px}.booking-grid{grid-template-columns:1fr;gap:50px}.booking h2{font-size:clamp(44px,13vw,62px)}.booking-note{min-height:0}.footer-bottom{margin-top:58px;grid-template-columns:1fr;justify-items:start}.footer-bottom .brand,.footer-bottom>a:last-child{justify-self:start}.footer-bottom p{line-height:1.6}}
     @media(max-width:800px){.place-photo{height:450px;margin-top:16px;border-radius:22px}.place-photo img{object-position:42% center}.place-photo figcaption{right:22px;bottom:22px;left:22px;display:block}.place-photo b{font-size:29px}.place-photo span{display:block;margin-top:8px;text-align:left}.card.card-photo{min-height:360px}.feature{width:calc(100% - 32px);margin:0 auto 48px;border-radius:22px}.feature-photo{width:100%;min-height:0;aspect-ratio:.84;background:#202a22 url("../public/prohlada-chan.jpg") center 38%/cover no-repeat}.feature-copy{padding:50px 24px 62px}.feature h2{font-size:clamp(42px,12vw,58px)}.night-story{width:calc(100% - 32px);height:530px;margin-bottom:0;border-radius:22px}.night-story img{object-position:58% center}.night-story:after{background:linear-gradient(180deg,rgba(12,17,13,.05) 20%,rgba(12,17,13,.86) 100%)}.night-story-copy{right:24px;bottom:34px;left:24px}.night-story h2{font-size:clamp(40px,11vw,56px)}}
+    /* Noticeably brighter photography, while preserving readable overlay text. */
+    .hero-photo img,.place-photo img{filter:brightness(1.22) saturate(1.10)}
+    .card-photo img{filter:brightness(1.34) saturate(1.10)}
+    .night-story img{filter:brightness(1.42) saturate(1.10)}
+    .feature-photo{filter:brightness(1.22) saturate(1.08)}
+    .hero-photo:after{background:linear-gradient(180deg,transparent 60%,rgba(9,14,10,.28))}
+    .place-photo:after{background:linear-gradient(transparent,rgba(15,22,16,.54))}
+    .card-photo:after{background:linear-gradient(180deg,rgba(12,18,13,.03) 28%,rgba(12,18,13,.66) 100%)}
+    .night-story:after{background:linear-gradient(90deg,rgba(12,17,13,.58),rgba(12,17,13,.03) 72%)}
+    .caption,.place-photo figcaption,.card-photo>div,.night-story-copy{text-shadow:0 2px 14px rgba(0,0,0,.58)}
+    @media(max-width:800px){.night-story:after{background:linear-gradient(180deg,rgba(12,17,13,.02) 25%,rgba(12,17,13,.66) 100%)}}
   </style>
 </head>
 <body>
@@ -69,23 +80,23 @@
         <div class="actions"><a class="button" href="#calendar">Узнать свободные даты <span>↓</span></a><a href="#prices">Посмотреть цены ↓</a></div>
         <div class="facts"><div><strong>20</strong><span>спальных мест</span></div><div><strong>100%</strong><span>территории для вас</span></div><div><strong>2</strong><span>бассейна</span></div></div>
       </div>
-        <div class="hero-photo"><img src="../public/prohlada-pool-cottage.jpg" alt="Красный коттедж и бассейн с водопадом в гостевом доме Прохлада"><div class="water-badge"><b>Вода</b><span>пресная и чистая</span></div><div class="caption"><span>Гостевой дом</span><strong>«Прохлада»</strong></div></div>
+        <div class="hero-photo"><img src="../public/prohlada-pool-cottage.jpg" alt="Красный коттедж и бассейн с водопадом в гостевом доме Прохлада"><div class="water-badge"><b>Горная вода</b><span>чистая во всех кранах</span></div><div class="caption"><span>Гостевой дом</span><strong>«Прохлада»</strong></div></div>
     </section>
 
     <section class="intro wrap" id="about">
       <p class="eyebrow">О месте</p>
       <div class="intro-grid"><h2>Отдых без соседей, суеты и лишних планов</h2><div class="copy"><p>Здесь можно собрать семью или друзей и получить целое пространство только для себя: плавать и готовить на огне. Париться в банном лечебном чане и в парилке. Слушать журчание воды и пение птиц.</p><p>Всё необходимое уже на территории — вам остаётся выбрать дату и приехать.</p></div></div>
-      <div class="values"><div><i>◇</i><b>Приватность</b><p>Никаких посторонних во время вашего отдыха.</p></div><div><i>≋</i><b>Живая вода</b><p>Бассейн с водопадом и пресной чистой водой.</p></div><div><i>♨</i><b>Тепло круглый год</b><p>Баня, лечебный чан и уютные коттеджи.</p></div><div><i>⌂</i><b>Для большой компании</b><p>До 20 комфортных спальных мест.</p></div></div>
-      <figure class="place-photo"><img src="../public/prohlada-loungers.jpg" alt="Шезлонги и зона отдыха среди зелени"><figcaption><b>Место для неспешного дня</b><span>Отдыхайте у воды, в тени деревьев или всей компанией у очага.</span></figcaption></figure>
+      <div class="values"><div><i>◇</i><b>Приватность</b><p>Никаких посторонних во время вашего отдыха.</p></div><div><i>≋</i><b>Горная вода</b><p>Чистая горная вода поступает во все краны и наполняет бассейн с водопадом.</p></div><div><i>♨</i><b>Тепло круглый год</b><p>Баня, лечебный чан и уютные коттеджи.</p></div><div><i>⌂</i><b>Для большой компании</b><p>До 20 комфортных спальных мест.</p></div></div>
+      <figure class="place-photo"><img src="../public/prohlada-tea-table.jpg" alt="Чаепитие на большом каменном столе среди зелени"><figcaption><b>Чаепитие среди зелени</b><span>Отдыхайте без соседей и суеты — в тени деревьев, у воды или всей компанией у очага.</span></figcaption></figure>
     </section>
 
     <section class="amenities wrap" id="amenities">
       <div class="heading"><div><p class="eyebrow">Всё включено в отдых</p><h2>Одна территория.<br>Много сценариев.</h2></div><p>От спокойного дня у воды до большого семейного праздника — пространство подстраивается под вашу компанию.</p></div>
       <div class="cards">
         <article class="card"><span>01</span><div><h3>Коттеджи у воды</h3><p>Уютные дома с видом на водопад и 20 комфортными спальными местами.</p></div></article>
-        <article class="card"><span>02</span><div><h3>Бассейны</h3><p>Большой бассейн с водопадом и отдельный безопасный бассейн для детей.</p></div></article>
+        <article class="card card-photo"><img src="../public/prohlada-pool-waterfall.jpg" alt="Бассейн с чистой водой и водопадом у коттеджа"><span>02</span><div><h3>Бассейны</h3><p>Большой бассейн с водопадом и отдельный безопасный бассейн для детей.</p></div></article>
         <article class="card card-photo"><img src="../public/prohlada-chan-empty.jpg" alt="Банный чан без людей среди зелени"><span>03</span><div><h3>Баня и чан</h3><p>Банный комплекс и лечебный чан для глубокого отдыха круглый год.</p></div></article>
-        <article class="card card-photo"><img src="../public/prohlada-gazebo.jpg" alt="Большая освещённая беседка со столами"><span>04</span><div><h3>Всё для застолья</h3><p>Беседки, топчан, мангальная зона, очаг и необходимая посуда.</p></div></article>
+        <article class="card card-photo"><img src="../public/prohlada-tea-table.jpg" alt="Угощение и чай на большом каменном столе среди зелени"><span>04</span><div><h3>Всё для застолья</h3><p>Беседки, топчан, мангальная зона, очаг и необходимая посуда.</p></div></article>
         <article class="card"><span>05</span><div><h3>Для всей семьи</h3><p>Качели, детская площадка, шезлонги и волейбольная площадка.</p></div></article>
         <article class="card"><span>06</span><div><h3>Полная приватность</h3><p>Вся большая территория — только для вашей компании.</p></div></article>
       </div>

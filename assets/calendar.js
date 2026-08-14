@@ -19,6 +19,8 @@
   var checkin = "";
   var checkout = "";
   var statuses = {};
+  var availabilityCache = {};
+  var pendingLoads = {};
   var months = [
     "январь", "февраль", "март", "апрель", "май", "июнь",
     "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"
@@ -165,22 +167,41 @@
     panels.appendChild(renderMonth(new Date(view.getFullYear(), view.getMonth() + 1, 1)));
   }
 
-  async function loadMonths() {
+  function visibleRange() {
     var from = key(new Date(view.getFullYear(), view.getMonth(), 1));
     var to = key(new Date(view.getFullYear(), view.getMonth() + 2, 0));
+    return { from: from, to: to, cacheKey: from + "|" + to };
+  }
+
+  function applyAvailability(dates) {
+    statuses = {};
+    dates.forEach(function (item) {
+      statuses[item.date] = item.status;
+    });
+    updateFields();
+    renderMonths();
+  }
+
+  async function loadMonths() {
+    var range = visibleRange();
+    if (availabilityCache[range.cacheKey]) {
+      applyAvailability(availabilityCache[range.cacheKey]);
+      return;
+    }
+    if (pendingLoads[range.cacheKey]) return pendingLoads[range.cacheKey];
     hint.textContent = "Загружаем свободные даты…";
+    var task = fetch("/api/availability?from=" + range.from + "&to=" + range.to)
+      .then(function (response) { if (!response.ok) throw new Error("load"); return response.json(); })
+      .then(function (data) { return data.dates || []; });
+    pendingLoads[range.cacheKey] = task;
     try {
-      var response = await fetch("/api/availability?from=" + from + "&to=" + to);
-      if (!response.ok) throw new Error("load");
-      var data = await response.json();
-      statuses = {};
-      data.dates.forEach(function (item) {
-        statuses[item.date] = item.status;
-      });
-      updateFields();
-      renderMonths();
+      var dates = await task;
+      availabilityCache[range.cacheKey] = dates;
+      if (visibleRange().cacheKey === range.cacheKey) applyAvailability(dates);
     } catch (error) {
-      hint.textContent = "Не удалось загрузить даты. Попробуйте ещё раз.";
+      if (visibleRange().cacheKey === range.cacheKey) hint.textContent = "Не удалось загрузить даты. Попробуйте ещё раз.";
+    } finally {
+      delete pendingLoads[range.cacheKey];
     }
   }
 
@@ -263,6 +284,8 @@
       adults: adultCount,
       children: childCount,
       stayType: staySelect.value,
+      checkinTime: "13:00",
+      checkoutTime: "10:30",
       notes: notes
     };
     try {
@@ -282,10 +305,10 @@
       var whatsappMessage = [
         "Здравствуйте! Новая заявка с сайта «Прохлада».",
         data.id ? "Заявка №" + data.id : "",
-        "Имя: " + name,
+        "ФИО: " + name,
         "Телефон: " + phone,
-        "Заезд: " + displayDate(checkin),
-        "Выезд: " + displayDate(checkout),
+        "Заезд: " + displayDate(checkin) + ", с 13:00",
+        "Выезд: " + displayDate(checkout) + ", до 10:30",
         "Гости: " + adultCount + " взрослых, " + childCount + " детей",
         "Формат: " + stayLabel,
         "Комментарий: " + (notes || "нет")
@@ -299,4 +322,7 @@
   });
 
   updateFields();
+  var prefetchCalendar = function () { loadMonths(); };
+  if ("requestIdleCallback" in window) window.requestIdleCallback(prefetchCalendar, { timeout: 800 });
+  else window.setTimeout(prefetchCalendar, 150);
 }());

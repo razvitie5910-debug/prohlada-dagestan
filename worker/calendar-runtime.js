@@ -36,16 +36,20 @@ function validDate(value) {
   return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
 }
 
+let schemaReady;
+
 async function ensureSchema(env) {
   if (!env.DB) throw new Error("Database binding is missing");
-  await env.DB.prepare(
-    "CREATE TABLE IF NOT EXISTS availability (date TEXT PRIMARY KEY NOT NULL, status TEXT NOT NULL CHECK (status IN ('available','booked','closed')), updated_at TEXT NOT NULL)"
-  ).run();
-  await env.DB.prepare(
-    "CREATE TABLE IF NOT EXISTS bookings (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, guest_name TEXT NOT NULL, phone TEXT NOT NULL, check_in TEXT NOT NULL, check_out TEXT NOT NULL, adults INTEGER NOT NULL DEFAULT 1, children INTEGER NOT NULL DEFAULT 0, stay_type TEXT NOT NULL DEFAULT 'overnight' CHECK (stay_type IN ('day','overnight')), checkin_time TEXT NOT NULL DEFAULT '', checkout_time TEXT NOT NULL DEFAULT '', deposit INTEGER NOT NULL DEFAULT 0, total INTEGER NOT NULL DEFAULT 0, status TEXT NOT NULL DEFAULT 'new' CHECK (status IN ('new','confirmed','paid','cancelled')), notes TEXT NOT NULL DEFAULT '', source TEXT NOT NULL DEFAULT 'site' CHECK (source IN ('site','manual','whatsapp','phone')), created_at TEXT NOT NULL, updated_at TEXT NOT NULL)"
-  ).run();
-  await env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_bookings_dates ON bookings (check_in, check_out)").run();
-  await env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_bookings_status_check_in ON bookings (status, check_in)").run();
+  if (!schemaReady) {
+    const statements = [
+      env.DB.prepare("CREATE TABLE IF NOT EXISTS availability (date TEXT PRIMARY KEY NOT NULL, status TEXT NOT NULL CHECK (status IN ('available','booked','closed')), updated_at TEXT NOT NULL)"),
+      env.DB.prepare("CREATE TABLE IF NOT EXISTS bookings (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, guest_name TEXT NOT NULL, phone TEXT NOT NULL, check_in TEXT NOT NULL, check_out TEXT NOT NULL, adults INTEGER NOT NULL DEFAULT 1, children INTEGER NOT NULL DEFAULT 0, stay_type TEXT NOT NULL DEFAULT 'overnight' CHECK (stay_type IN ('day','overnight')), checkin_time TEXT NOT NULL DEFAULT '', checkout_time TEXT NOT NULL DEFAULT '', deposit INTEGER NOT NULL DEFAULT 0, total INTEGER NOT NULL DEFAULT 0, status TEXT NOT NULL DEFAULT 'new' CHECK (status IN ('new','confirmed','paid','cancelled')), notes TEXT NOT NULL DEFAULT '', source TEXT NOT NULL DEFAULT 'site' CHECK (source IN ('site','manual','whatsapp','phone')), created_at TEXT NOT NULL, updated_at TEXT NOT NULL)"),
+      env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_bookings_dates ON bookings (check_in, check_out)"),
+      env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_bookings_status_check_in ON bookings (status, check_in)")
+    ];
+    schemaReady = env.DB.batch(statements).catch((error) => { schemaReady = undefined; throw error; });
+  }
+  await schemaReady;
 }
 
 function cookieValue(request, name) {
@@ -186,6 +190,8 @@ function normalizeBooking(body, publicRequest) {
     booking.source = "site";
     booking.deposit = 0;
     booking.total = 0;
+    booking.checkinTime = booking.checkinTime || "13:00";
+    booking.checkoutTime = booking.checkoutTime || "10:30";
   }
   if (!booking.guestName || booking.phone.length < 6) return { error: "Укажите фамилию, имя, отчество и номер телефона" };
   if (!validDate(booking.checkIn) || !validDate(booking.checkOut) || booking.checkIn >= booking.checkOut) return { error: "Некорректные даты" };

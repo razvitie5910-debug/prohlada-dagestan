@@ -126,8 +126,8 @@
     field("booking-children").value = item ? item.children : 0;
     field("booking-stay").value = item ? item.stayType : "overnight";
     field("booking-status-field").value = item ? item.status : "new";
-    field("booking-checkin-time").value = item ? item.checkinTime : "";
-    field("booking-checkout-time").value = item ? item.checkoutTime : "";
+    field("booking-checkin-time").value = item ? item.checkinTime : "13:00";
+    field("booking-checkout-time").value = item ? item.checkoutTime : "10:30";
     field("booking-deposit").value = item ? item.deposit : 0;
     field("booking-total").value = item ? item.total : 0;
     field("booking-source").value = item ? item.source : "manual";
