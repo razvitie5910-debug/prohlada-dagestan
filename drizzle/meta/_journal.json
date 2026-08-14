@@ -1,27 +1,34 @@
 {
-    "version":  "7",
-    "dialect":  "sqlite",
-    "entries":  [
-                    {
-                        "idx":  0,
-                        "version":  "7",
-                        "when":  1786359600000,
-                        "tag":  "0001_availability",
-                        "breakpoints":  true
-                    },
-                    {
-                        "idx":  1,
-                        "version":  "7",
-                        "when":  1786440600000,
-                        "tag":  "0002_bookings",
-                        "breakpoints":  true
-                    },
-                    {
-                        "idx":  2,
-                        "version":  "7",
-                        "when":  1786737600000,
-                        "tag":  "0003_booking_residence",
-                        "breakpoints":  true
-                    }
-                ]
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1786359600000,
+      "tag": "0001_availability",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1786440600000,
+      "tag": "0002_bookings",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1786737600000,
+      "tag": "0003_booking_residence",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1786739376017,
+      "tag": "0004_pricing_settings",
+      "breakpoints": true
+    }
+  ]
 }

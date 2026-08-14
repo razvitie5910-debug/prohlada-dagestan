@@ -372,3 +372,16 @@
     if (event.key === "Escape" && !modal.classList.contains("hidden")) closePrivacy();
   });
 }());
+(function () {
+  var dayNode = document.querySelector('[data-price="day"]');
+  var overnightNode = document.querySelector('[data-price="overnight"]');
+  if (!dayNode || !overnightNode) return;
+  var format = function (value) { return new Intl.NumberFormat("ru-RU").format(Number(value) || 0) + " ₽"; };
+  fetch("/api/pricing").then(function (response) {
+    if (!response.ok) throw new Error("pricing unavailable");
+    return response.json();
+  }).then(function (data) {
+    dayNode.textContent = format(data.dayPrice);
+    overnightNode.textContent = format(data.overnightPrice);
+  }).catch(function () { /* Keep the visible default prices if the service is temporarily unavailable. */ });
+}());

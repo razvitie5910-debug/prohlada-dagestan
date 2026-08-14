@@ -6,6 +6,13 @@ export const availability = sqliteTable("availability", {
   updatedAt: text("updated_at").notNull(),
 });
 
+export const pricingSettings = sqliteTable("pricing_settings", {
+  id: integer("id").primaryKey(),
+  dayPrice: integer("day_price").notNull().default(15000),
+  overnightPrice: integer("overnight_price").notNull().default(15000),
+  updatedAt: text("updated_at").notNull(),
+});
+
 export const bookings = sqliteTable("bookings", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   guestName: text("guest_name").notNull(),

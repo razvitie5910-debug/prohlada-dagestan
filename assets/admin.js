@@ -14,6 +14,8 @@
   var bookingForm = document.getElementById("booking-form");
   var bookingFormStatus = document.getElementById("booking-form-status");
   var deleteBookingButton = document.getElementById("delete-booking");
+  var pricingForm = document.getElementById("pricing-form");
+  var pricingStatus = document.getElementById("pricing-status");
   var current = new Date();
   current = new Date(current.getFullYear(), current.getMonth(), 1);
   var statuses = {};
@@ -115,6 +117,14 @@
     bookings = data.bookings || []; renderBookings();
   }
 
+  async function loadPricing() {
+    pricingStatus.textContent = "Загружаем цены…";
+    var data = await responseJson(await fetch("/api/admin/pricing"));
+    field("price-day").value = data.dayPrice;
+    field("price-overnight").value = data.overnightPrice;
+    pricingStatus.textContent = "";
+  }
+
   function field(id) { return document.getElementById(id); }
   function setForm(item) {
     field("booking-id").value = item ? item.id : "";
@@ -174,8 +184,23 @@
     }
   });
 
-  function showAdmin() { loginCard.classList.add("hidden"); panel.classList.remove("hidden"); logoutButton.classList.remove("hidden"); Promise.all([loadBookings(), loadMonth()]).catch(function (error) { statusLine.textContent = error.message; }); }
+  function showAdmin() { loginCard.classList.add("hidden"); panel.classList.remove("hidden"); logoutButton.classList.remove("hidden"); Promise.all([loadBookings(), loadMonth(), loadPricing()]).catch(function (error) { statusLine.textContent = error.message; }); }
   function showLogin() { panel.classList.add("hidden"); logoutButton.classList.add("hidden"); loginCard.classList.remove("hidden"); closeBooking(); }
+
+  pricingForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    pricingStatus.textContent = "Сохраняем цены…";
+    try {
+      var data = await responseJson(await fetch("/api/admin/pricing", {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ dayPrice: Number(field("price-day").value), overnightPrice: Number(field("price-overnight").value) })
+      }));
+      field("price-day").value = data.dayPrice;
+      field("price-overnight").value = data.overnightPrice;
+      pricingStatus.textContent = "Цены сохранены и уже отображаются на сайте.";
+    } catch (error) { pricingStatus.textContent = error.message; }
+  });
 
   loginForm.addEventListener("submit", async function (event) { event.preventDefault(); loginStatus.textContent = "Проверяем пароль…"; try { await responseJson(await fetch("/api/admin/login", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ password: field("admin-password").value }) })); field("admin-password").value = ""; loginStatus.textContent = ""; showAdmin(); } catch (error) { loginStatus.textContent = error.message; } });
   logoutButton.addEventListener("click", async function () { await fetch("/api/admin/logout", { method: "POST" }); showLogin(); });

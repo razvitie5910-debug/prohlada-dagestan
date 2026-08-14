@@ -44,6 +44,7 @@ async function ensureSchema(env) {
     const statements = [
       env.DB.prepare("CREATE TABLE IF NOT EXISTS availability (date TEXT PRIMARY KEY NOT NULL, status TEXT NOT NULL CHECK (status IN ('available','booked','closed')), updated_at TEXT NOT NULL)"),
       env.DB.prepare("CREATE TABLE IF NOT EXISTS bookings (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, guest_name TEXT NOT NULL, phone TEXT NOT NULL, residence TEXT NOT NULL DEFAULT '', check_in TEXT NOT NULL, check_out TEXT NOT NULL, adults INTEGER NOT NULL DEFAULT 1, children INTEGER NOT NULL DEFAULT 0, stay_type TEXT NOT NULL DEFAULT 'overnight' CHECK (stay_type IN ('day','overnight')), checkin_time TEXT NOT NULL DEFAULT '', checkout_time TEXT NOT NULL DEFAULT '', deposit INTEGER NOT NULL DEFAULT 0, total INTEGER NOT NULL DEFAULT 0, status TEXT NOT NULL DEFAULT 'new' CHECK (status IN ('new','confirmed','paid','cancelled')), notes TEXT NOT NULL DEFAULT '', source TEXT NOT NULL DEFAULT 'site' CHECK (source IN ('site','manual','whatsapp','phone')), created_at TEXT NOT NULL, updated_at TEXT NOT NULL)"),
+      env.DB.prepare("CREATE TABLE IF NOT EXISTS pricing_settings (id INTEGER PRIMARY KEY NOT NULL, day_price INTEGER NOT NULL DEFAULT 15000, overnight_price INTEGER NOT NULL DEFAULT 15000, updated_at TEXT NOT NULL)"),
       env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_bookings_dates ON bookings (check_in, check_out)"),
       env.DB.prepare("CREATE INDEX IF NOT EXISTS idx_bookings_status_check_in ON bookings (status, check_in)")
     ];
@@ -330,6 +331,31 @@ async function adminUpdate(request, env) {
   return json({ ok: true });
 }
 
+async function publicPricing(env) {
+  await ensureSchema(env);
+  const row = await env.DB.prepare("SELECT day_price, overnight_price FROM pricing_settings WHERE id = 1").first();
+  return json({
+    dayPrice: row ? row.day_price : 15000,
+    overnightPrice: row ? row.overnight_price : 15000
+  });
+}
+
+async function adminPricing(request, env) {
+  if (!(await isAdmin(request, env))) return json({ error: "Требуется вход" }, 401);
+  await ensureSchema(env);
+  if (request.method === "GET") return publicPricing(env);
+  let body;
+  try { body = await readBody(request); } catch (error) { return json({ error: "Некорректный запрос" }, 400); }
+  const dayPrice = cleanInteger(body.dayPrice, 0, 10000000);
+  const overnightPrice = cleanInteger(body.overnightPrice, 0, 10000000);
+  if (dayPrice == null || overnightPrice == null) return json({ error: "Укажите корректные цены" }, 400);
+  const updatedAt = new Date().toISOString();
+  await env.DB.prepare(
+    "INSERT INTO pricing_settings (id, day_price, overnight_price, updated_at) VALUES (1, ?1, ?2, ?3) ON CONFLICT(id) DO UPDATE SET day_price = excluded.day_price, overnight_price = excluded.overnight_price, updated_at = excluded.updated_at"
+  ).bind(dayPrice, overnightPrice, updatedAt).run();
+  return json({ ok: true, dayPrice, overnightPrice, updatedAt });
+}
+
 async function route(request, env) {
   const url = new URL(request.url);
   const path = url.pathname;
@@ -348,6 +374,7 @@ async function route(request, env) {
   if (path === "/calendar.js") return asset(PUBLIC_JS, "text/javascript; charset=utf-8");
   if (path === "/admin.js") return asset(ADMIN_JS, "text/javascript; charset=utf-8");
   if (path === "/admin" || path === "/admin/") return html(ADMIN_HTML);
+  if (path === "/api/pricing" && request.method === "GET") return publicPricing(env);
   if (path === "/api/availability" && request.method === "GET") return availability(request, env, url);
   if (path === "/api/bookings" && request.method === "POST") return publicCreateBooking(request, env);
   if (path === "/api/admin/login" && request.method === "POST") return adminLogin(request, env);
@@ -356,6 +383,9 @@ async function route(request, env) {
   }
   if (path === "/api/admin/session" && request.method === "GET") {
     return (await isAdmin(request, env)) ? json({ authenticated: true }) : json({ authenticated: false }, 401);
+  }
+  if (path === "/api/admin/pricing" && (request.method === "GET" || request.method === "PUT")) {
+    return adminPricing(request, env);
   }
   if (path === "/api/admin/availability" && (request.method === "PUT" || request.method === "DELETE")) {
     return adminUpdate(request, env);
