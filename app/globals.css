@@ -1042,7 +1042,7 @@ footer > a {
   }
 
   .intro {
-    padding: 105px 0 76px;
+    padding: 105px 0 0;
   }
 
   .intro-grid,
@@ -1097,7 +1097,7 @@ footer > a {
   }
 
   .amenities-section {
-    padding: 80px 0 90px;
+    padding: 44px 0 90px;
   }
 
   .section-heading {
