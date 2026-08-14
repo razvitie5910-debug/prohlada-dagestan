@@ -302,6 +302,7 @@
 .request-field textarea { width: 100%; padding: 13px 14px; border: 1px solid rgba(32,37,31,.16); border-radius: 4px; background: #f8f6f1; color: #20251f; font: inherit; }
 .request-field textarea { min-height: 82px; resize: vertical; }
 .request-full { grid-column: 1 / -1; }
+.booking-request-status { min-height: 22px; margin-top: 14px; color: #8b4438; font-size: 13px; font-weight: 700; line-height: 1.45; }
 .booking-request-submit { width: 100%; margin-top: 16px; padding: 15px; border: 0; border-radius: 999px; background: #2d382d; color: #fff; cursor: pointer; font: 700 13px Arial,sans-serif; }
 .booking-request-submit:disabled { opacity: .65; cursor: wait; }
 .request-consent { margin: 10px 0 0; color: #72766f; font-size: 11px; text-align: center; }

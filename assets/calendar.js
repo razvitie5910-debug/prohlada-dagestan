@@ -14,6 +14,7 @@
   var resultTitle = document.getElementById("availability-result-title");
   var resultGuests = document.getElementById("availability-result-guests");
   var requestButton = document.getElementById("booking-request-submit");
+  var requestStatus = document.getElementById("booking-request-status");
   var view = new Date();
   view = new Date(view.getFullYear(), view.getMonth(), 1);
   var checkin = "";
@@ -70,6 +71,7 @@
     if (previousSuccess) previousSuccess.remove();
     requestButton.disabled = false;
     requestButton.textContent = "Отправить заявку в WhatsApp";
+    requestStatus.textContent = "";
     if (checkin) {
       checkinLabel.textContent = displayDate(checkin);
       checkinTrigger.classList.remove("placeholder");
@@ -262,21 +264,25 @@
   });
 
   requestButton.addEventListener("click", async function () {
+    requestStatus.textContent = "";
     var name = document.getElementById("request-name").value.trim();
     var phone = document.getElementById("request-phone").value.trim();
     var residence = document.getElementById("request-residence").value.trim();
     var consent = document.getElementById("request-consent");
     if (!name || phone.length < 6 || !residence) {
-      message.textContent = "Укажите полностью фамилию, имя, отчество, номер телефона и место проживания.";
+      requestStatus.textContent = "Укажите полностью фамилию, имя, отчество, номер телефона и место проживания.";
       return;
     }
     if (!consent.checked) {
-      message.textContent = "Подтвердите согласие на обработку и передачу данных в WhatsApp.";
+      requestStatus.textContent = "Подтвердите согласие на обработку и передачу данных в WhatsApp.";
       return;
     }
     requestButton.disabled = true;
     requestButton.textContent = "Отправляем…";
     message.textContent = "";
+    requestStatus.textContent = "Сохраняем заявку и открываем WhatsApp…";
+    var whatsappWindow = window.open("", "_blank");
+    if (whatsappWindow) whatsappWindow.opener = null;
     var adultCount = Number(document.getElementById("adult-count").value);
     var childCount = Number(document.getElementById("child-count").value);
     var staySelect = document.getElementById("request-stay");
@@ -322,9 +328,13 @@
         "Формат: " + stayLabel,
         "Комментарий: " + (notes || "нет")
       ].filter(Boolean).join("\n");
-      window.location.assign("https://wa.me/79673999188?text=" + encodeURIComponent(whatsappMessage));
+      var whatsappUrl = "https://wa.me/79673999188?text=" + encodeURIComponent(whatsappMessage);
+      requestStatus.textContent = "Заявка сохранена. Открываем WhatsApp…";
+      if (whatsappWindow) whatsappWindow.location.href = whatsappUrl;
+      else window.location.href = whatsappUrl;
     } catch (error) {
-      message.textContent = error.message;
+      if (whatsappWindow) whatsappWindow.close();
+      requestStatus.textContent = error.message;
       requestButton.disabled = false;
       requestButton.textContent = "Отправить заявку в WhatsApp";
     }
