@@ -67,7 +67,7 @@
     var previousSuccess = document.getElementById("booking-request-success");
     if (previousSuccess) previousSuccess.remove();
     requestButton.disabled = false;
-    requestButton.textContent = "Отправить заявку";
+    requestButton.textContent = "Отправить заявку в WhatsApp";
     if (checkin) {
       checkinLabel.textContent = displayDate(checkin);
       checkinTrigger.classList.remove("placeholder");
@@ -250,20 +250,26 @@
     requestButton.disabled = true;
     requestButton.textContent = "Отправляем…";
     message.textContent = "";
+    var adultCount = Number(document.getElementById("adult-count").value);
+    var childCount = Number(document.getElementById("child-count").value);
+    var staySelect = document.getElementById("request-stay");
+    var stayLabel = staySelect.options[staySelect.selectedIndex].text;
+    var notes = document.getElementById("request-notes").value.trim();
+    var bookingPayload = {
+      guestName: name,
+      phone: phone,
+      checkIn: checkin,
+      checkOut: checkout,
+      adults: adultCount,
+      children: childCount,
+      stayType: staySelect.value,
+      notes: notes
+    };
     try {
       var response = await fetch("/api/bookings", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          guestName: name,
-          phone: phone,
-          checkIn: checkin,
-          checkOut: checkout,
-          adults: Number(document.getElementById("adult-count").value),
-          children: Number(document.getElementById("child-count").value),
-          stayType: document.getElementById("request-stay").value,
-          notes: document.getElementById("request-notes").value
-        })
+        body: JSON.stringify(bookingPayload)
       });
       var data = await response.json().catch(function () { return {}; });
       if (!response.ok) throw new Error(data.error || "Не удалось отправить заявку");
@@ -273,10 +279,22 @@
       success.innerHTML = '<strong>Заявка №' + (data.id || "") + ' отправлена</strong><p>Владелец увидит её в админке и свяжется с вами для подтверждения.</p>';
       result.insertBefore(success, result.firstChild);
       requestButton.textContent = "Заявка отправлена";
+      var whatsappMessage = [
+        "Здравствуйте! Новая заявка с сайта «Прохлада».",
+        data.id ? "Заявка №" + data.id : "",
+        "Имя: " + name,
+        "Телефон: " + phone,
+        "Заезд: " + displayDate(checkin),
+        "Выезд: " + displayDate(checkout),
+        "Гости: " + adultCount + " взрослых, " + childCount + " детей",
+        "Формат: " + stayLabel,
+        "Комментарий: " + (notes || "нет")
+      ].filter(Boolean).join("\n");
+      window.location.assign("https://wa.me/79673999188?text=" + encodeURIComponent(whatsappMessage));
     } catch (error) {
       message.textContent = error.message;
       requestButton.disabled = false;
-      requestButton.textContent = "Отправить заявку";
+      requestButton.textContent = "Отправить заявку в WhatsApp";
     }
   });
 
