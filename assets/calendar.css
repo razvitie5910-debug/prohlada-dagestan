@@ -321,13 +321,26 @@
   font-size: 12px;
 }
 
-.availability-result a {
-  white-space: nowrap;
-  padding: 12px 18px;
-  border-radius: 999px;
-  background: #2d382d;
-  color: white;
-  font-size: 12px;
+.request-consent-check span {
+  display: block;
+  margin: 0;
+  color: #4f574f;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.request-consent-check a {
+  display: inline;
+  width: auto;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #79523b;
+  font-size: inherit;
+  font-weight: 800;
+  white-space: normal;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 .calendar-message {
@@ -494,7 +507,7 @@
   .dialog-footer p { align-self: center; }
   .stay-times { justify-content: space-between; gap: 12px; }
   .availability-result { align-items: flex-start; flex-direction: column; }
-  .availability-result a { width: 100%; text-align: center; }
+  .request-consent-check a { width: auto; text-align: left; }
   .request-heading { align-items: flex-start; flex-direction: column; }
   .request-grid { grid-template-columns: 1fr; }
   .request-full { grid-column: auto; }
