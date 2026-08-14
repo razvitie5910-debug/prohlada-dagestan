@@ -104,7 +104,7 @@
         '<div class="booking-date">' + escapeHtml(displayDate(item.checkIn)) + '<small>до ' + escapeHtml(displayDate(item.checkOut)) + '</small></div>' +
         '<div><h3 class="booking-name">' + escapeHtml(item.guestName) + '</h3><div class="booking-meta"><span>' + escapeHtml(item.phone) + '</span><span>' + people + '</span><span>' + (item.stayType === "day" ? "без ночлега" : "с ночлегом") + times + '</span><span>' + escapeHtml(sourceNames[item.source] || item.source) + '</span>' + (item.deposit ? '<span>залог ' + money(item.deposit) + '</span>' : '') + (item.total ? '<span>остаток ' + money(Math.max(0, item.total - item.deposit)) + '</span>' : '') + '</div>' +
         (item.notes ? '<p class="booking-note">' + escapeHtml(item.notes) + '</p>' : '') + '</div>' +
-        '<div class="booking-side"><span class="status-pill status-' + item.status + '">' + statusNames[item.status] + '</span><strong class="booking-price">' + money(item.total) + '</strong><button class="quiet edit-booking" type="button">Открыть</button></div></article>';
+        '<div class="booking-side"><span class="booking-number">Заявка №' + item.id + '</span><span class="status-pill status-' + item.status + '">' + statusNames[item.status] + '</span><strong class="booking-price">' + money(item.total) + '</strong><button class="quiet edit-booking" type="button">Открыть</button></div></article>';
     }).join("");
     bookingList.querySelectorAll(".booking-card").forEach(function (card) { card.querySelector(".edit-booking").addEventListener("click", function () { openBooking(Number(card.dataset.bookingId)); }); });
   }
@@ -132,7 +132,7 @@
     field("booking-total").value = item ? item.total : 0;
     field("booking-source").value = item ? item.source : "manual";
     field("booking-notes").value = item ? item.notes : "";
-    document.getElementById("booking-dialog-title").textContent = item ? "Бронь №" + item.id : "Новая бронь";
+    document.getElementById("booking-dialog-title").textContent = item ? "Заявка №" + item.id : "Новая бронь";
     deleteBookingButton.classList.toggle("hidden", !item);
     bookingFormStatus.textContent = "";
   }
