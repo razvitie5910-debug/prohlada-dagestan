@@ -1,6 +1,6 @@
 .calendar-card {
   padding: 28px;
-  background: #fbfaf6;
+  background: #f3f1eb;
   border: 1px solid rgba(32, 37, 31, 0.14);
   border-radius: 5px;
 }
@@ -109,7 +109,7 @@
   gap: 7px;
   border: 1px solid rgba(32, 37, 31, 0.12);
   border-radius: 999px;
-  background: white;
+  background: #f8f6f1;
 }
 
 .calendar-legend i {
@@ -124,7 +124,7 @@
 
 .booking-calendar-section {
   padding: 88px 0;
-  background: #f4f0e8;
+  background: #e7e3da;
 }
 
 .booking-calendar-section .heading {
@@ -159,7 +159,7 @@
   width: min(930px, 100%);
   margin: 42px auto 0;
   padding: 34px;
-  background: #fbfaf6;
+  background: #f3f1eb;
   border: 1px solid rgba(32, 37, 31, 0.14);
   border-radius: 5px;
 }
@@ -213,7 +213,7 @@
   justify-content: space-between;
   border: 1px solid rgba(32, 37, 31, 0.22);
   border-radius: 4px;
-  background: white;
+  background: #f8f6f1;
   color: #30352f;
   font: inherit;
   cursor: pointer;
@@ -260,7 +260,7 @@
   display: block;
   padding: 24px;
   border: 1px solid rgba(32, 37, 31, 0.14);
-  background: #f4f0e8;
+  background: #e7e3da;
 }
 
 .request-heading {
@@ -281,7 +281,7 @@
 .request-field label { font-size: 11px; font-weight: 700; }
 .request-field input,
 .request-field select,
-.request-field textarea { width: 100%; padding: 13px 14px; border: 1px solid rgba(32,37,31,.16); border-radius: 4px; background: #fff; color: #20251f; font: inherit; }
+.request-field textarea { width: 100%; padding: 13px 14px; border: 1px solid rgba(32,37,31,.16); border-radius: 4px; background: #f8f6f1; color: #20251f; font: inherit; }
 .request-field textarea { min-height: 82px; resize: vertical; }
 .request-full { grid-column: 1 / -1; }
 .booking-request-submit { width: 100%; margin-top: 16px; padding: 15px; border: 0; border-radius: 999px; background: #2d382d; color: #fff; cursor: pointer; font: 700 13px Arial,sans-serif; }
@@ -336,7 +336,7 @@
   max-height: calc(100vh - 48px);
   overflow: auto;
   padding: 30px;
-  background: #fbfaf6;
+  background: #f3f1eb;
   box-shadow: 0 18px 70px rgba(20, 24, 19, 0.25);
 }
 
@@ -387,7 +387,7 @@
   min-height: 54px;
   padding: 8px;
   border: 1px solid rgba(32, 37, 31, 0.14);
-  background: white;
+  background: #f8f6f1;
   color: #20251f;
   cursor: pointer;
   font-weight: 700;

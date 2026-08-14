@@ -4,9 +4,9 @@
   --ink: #20251f;
   --green: #2d382d;
   --green-soft: #465445;
-  --cream: #f4f0e8;
-  --paper: #fbfaf6;
-  --sand: #ded4c4;
+  --cream: #e7e3da;
+  --paper: #efede7;
+  --sand: #d6d0c7;
   --copper: #a76d48;
   --line: rgba(32, 37, 31, 0.14);
 }
@@ -138,7 +138,7 @@ footer > a:hover {
   gap: 8px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: white;
+  background: #f7f5ef;
   cursor: pointer;
   font-size: 12px;
   font-weight: 700;
@@ -171,7 +171,7 @@ footer > a:hover {
   gap: 4px;
   border: 1px solid var(--line);
   border-radius: 18px;
-  background: rgba(251, 250, 246, 0.99);
+  background: rgba(239, 237, 231, 0.99);
   box-shadow: 0 22px 55px rgba(32, 37, 31, 0.18);
 }
 
@@ -248,7 +248,7 @@ footer > a:hover {
   max-width: 530px;
   margin: 38px 0 0;
   color: #485148;
-  font-size: 17px;
+  font-size: 19px;
   font-weight: 600;
   line-height: 1.65;
 }
@@ -428,7 +428,7 @@ footer > a:hover {
   align-self: end;
   max-width: 520px;
   color: #4f574f;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
   line-height: 1.75;
 }
@@ -466,7 +466,7 @@ footer > a:hover {
   max-width: 230px;
   margin: 10px 0 0;
   color: #525a52;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   line-height: 1.55;
 }
@@ -541,7 +541,7 @@ footer > a:hover {
   max-width: 470px;
   margin: 0 0 4px;
   color: #4f574f;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 600;
   line-height: 1.7;
 }
@@ -589,7 +589,7 @@ footer > a:hover {
   max-width: 310px;
   margin: 0;
   color: #515951;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 1.6;
 }
@@ -666,7 +666,7 @@ footer > a:hover {
   position: relative;
   margin: 13px 0;
   padding-left: 24px;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
 }
 
@@ -776,7 +776,7 @@ footer > a:hover {
 .price-note {
   margin: 5px 0 0;
   color: #505850;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -788,7 +788,7 @@ footer > a:hover {
 .price-card > p:not(.price-eyebrow, .price-note) {
   margin: 0;
   color: #4d554d;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 600;
 }
 
@@ -823,7 +823,7 @@ footer > a:hover {
   max-width: 250px;
   margin: 52px 0 0;
   color: rgba(255, 255, 255, 0.82);
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 1.6;
 }
@@ -995,7 +995,7 @@ footer > a {
 
   .hero-lead {
     margin-top: 28px;
-    font-size: 15px;
+    font-size: 18px;
   }
 
   .hero-actions {

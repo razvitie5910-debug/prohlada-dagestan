@@ -18,7 +18,7 @@ const amenities = [
     number: "03",
     title: "Баня и чан",
     text: "Банный комплекс и лечебный чан для глубокого отдыха в любое время года.",
-    image: null,
+    image: "/prohlada-chan-empty.jpg",
   },
   {
     number: "04",
@@ -220,23 +220,6 @@ export default function Home() {
               </div>
             </article>
           ))}
-        </div>
-      </section>
-
-      <section className="feature-band">
-        <div className="feature-image" role="img" aria-label="Гости отдыхают в лечебном банном чане" />
-        <div className="feature-copy">
-          <p className="section-kicker">Тепло круглый год</p>
-          <h2>Банный чан под открытым небом</h2>
-          <p>
-            После насыщенного дня можно согреться в лечебном чане, попариться
-            и спокойно продолжить вечер среди природы.
-          </p>
-          <ul>
-            <li>банный лечебный чан</li>
-            <li>парилка и зона отдыха</li>
-            <li>приватная атмосфера для своей компании</li>
-          </ul>
         </div>
       </section>
 

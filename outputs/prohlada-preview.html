@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Прохлада — гостевой дом в Дагестане</title>
   <style>
-    :root{--ink:#20251f;--green:#2d382d;--cream:#f4f0e8;--paper:#fbfaf6;--copper:#a76d48;--line:rgba(32,37,31,.14)}
+    :root{--ink:#252c25;--green:#334034;--cream:#e7e3da;--paper:#efede7;--copper:#9f6d4e;--line:rgba(37,44,37,.14)}
     *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,sans-serif;font-weight:500;-webkit-font-smoothing:antialiased}
     a{color:inherit;text-decoration:none}.serif,h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:400}.wrap{width:min(1320px,calc(100% - 64px));margin:auto}
     header{height:92px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:12px}.mark{width:38px;height:38px;display:grid;place-items:center;border:1px solid var(--copper);border-radius:50%;color:var(--copper);font-size:22px}.brand strong,.brand small{display:block}.brand strong{font:400 21px Georgia,serif;letter-spacing:.08em}.brand small{margin-top:3px;font-size:8px;letter-spacing:.2em}
@@ -30,6 +30,17 @@
     .card.card-photo{padding:0;background:#253127;color:#fff}.card-photo:after{inset:0;width:auto;height:auto;border-radius:0;background:linear-gradient(180deg,rgba(12,18,13,.08) 20%,rgba(12,18,13,.82) 100%)}.card-photo img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover}.card-photo>span,.card-photo>div{position:relative;z-index:2}.card-photo>span{margin:24px}.card-photo>div{padding:0 28px 28px}.card-photo p{color:rgba(255,255,255,.86)}
     .feature{width:min(1320px,calc(100% - 64px));min-height:640px;margin:0 auto 72px;grid-template-columns:1fr 1fr;border-radius:28px;overflow:hidden;box-shadow:0 28px 70px rgba(45,56,45,.16)}.feature-photo{min-height:640px;background:#202a22 url("../public/prohlada-chan.jpg") center 42%/cover no-repeat}.feature-copy{padding:70px 64px;align-self:center}.feature h2{max-width:520px;font-size:clamp(48px,4vw,66px);line-height:1.02}.feature-copy>p:not(.eyebrow){max-width:520px}.feature ul{max-width:520px}
     .night-story{width:min(1320px,calc(100% - 64px));height:560px;margin:0 auto 20px;padding:0;position:relative;overflow:hidden;border-radius:28px;color:#fff;box-shadow:0 26px 68px rgba(22,28,23,.18)}.night-story img{width:100%;height:100%;object-fit:cover}.night-story:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(12,17,13,.80),rgba(12,17,13,.08) 68%)}.night-story-copy{max-width:570px;position:absolute;z-index:2;left:64px;bottom:58px}.night-story .eyebrow{color:#e1b58f}.night-story h2{margin:0;font-size:clamp(46px,4.5vw,70px);font-weight:600;line-height:1.02}.night-story p:last-child{max-width:480px;margin:22px 0 0;font-weight:600;line-height:1.65;color:rgba(255,255,255,.88)}
+    /* A softer, low-glare palette with larger explanatory copy. */
+    header.wrap{background:rgba(239,237,231,.97)}
+    .mobile-menu summary{background:#f7f5ef}.mobile-menu-panel{background:rgba(239,237,231,.99)}.mobile-menu-panel a:hover{background:#e5e1d8}
+    .facts>div{background:rgba(247,245,239,.84);box-shadow:0 10px 24px rgba(45,56,45,.05)}
+    .values>div{background:linear-gradient(145deg,#f6f3ec,#e9e5dc)}.values>div:nth-child(2){background:linear-gradient(145deg,#e7eee8,#dce6db)}.values>div:nth-child(3){background:linear-gradient(145deg,#efe7df,#e5d8cc)}.values>div:nth-child(4){background:linear-gradient(145deg,#e8ebe4,#dce3d8)}
+    .card{background:linear-gradient(145deg,#f5f2eb,#e8e3da);box-shadow:0 18px 42px rgba(45,56,45,.055)}.card:nth-child(2),.card:nth-child(5){background:linear-gradient(145deg,#e5ece5,#d9e3d8)}.card:nth-child(3),.card:nth-child(4){background:linear-gradient(145deg,#eee5dc,#e3d5c8)}.card:nth-child(6){background:linear-gradient(145deg,#3d493e,#2d372e)}
+    .price{background:linear-gradient(145deg,#f6f3ed,#eae5dc)}.price:nth-child(2){background:linear-gradient(145deg,#eee5d9,#e4d8ca)}.price,.capacity{box-shadow:0 20px 48px rgba(45,56,45,.07)}
+    .lead{font-size:19px}.copy,.heading>p{font-size:18px}.values p{font-size:14px}.card p{font-size:16px}.feature li{font-size:15px}.note{font-size:14px}.price>.rule+p,.capacity p{font-size:16px}
+    .water-badge{background:rgba(239,237,231,.92)}
+    @media(max-width:800px){.lead{font-size:18px}.copy,.heading>p{font-size:17px}.card p{font-size:16px}}
+
     @media(max-width:1080px){header>nav{display:none}.mobile-menu{display:block}}
     @media(max-width:800px){.wrap,.hero,.booking{width:calc(100% - 32px)}header{height:78px}header.wrap{width:100%;padding:0 16px}.pill{display:none}.hero{display:flex;flex-direction:column;padding:12px;border-radius:0 0 26px 26px}.hero-copy{padding:42px 10px 10px}h1{font-size:clamp(52px,15.5vw,76px)}.hero h1 em{font-size:.68em}.actions{width:100%;flex-direction:column;align-items:stretch}.button{width:100%;justify-content:space-between}.facts{margin-top:35px;grid-template-columns:1fr;gap:8px}.facts>div{min-height:72px;flex-direction:row;align-items:center;justify-content:space-between}.facts span{max-width:135px;margin:0;text-align:right}.hero-photo{min-height:510px;border-radius:20px 20px 20px 52px}.intro-grid,.heading,.feature,.booking{grid-template-columns:1fr}.values{grid-template-columns:1fr;gap:14px}.values>div{min-height:190px}.cards{grid-template-columns:1fr}.feature{display:flex;flex-direction:column}.feature-photo{min-height:470px;background:linear-gradient(180deg,transparent 72%,var(--green)),url("../public/prohlada-cottage.png") 54% 72%/auto 112% no-repeat}.feature-copy{padding:50px 24px 75px}.prices{grid-template-columns:1fr}.price,.capacity{min-height:410px}.booking{padding:55px 24px;gap:40px}footer{min-height:200px;flex-direction:column;align-items:flex-start;justify-content:center}}
     @media(max-width:800px){.booking{width:100%;padding:66px 20px 28px}.booking-grid{grid-template-columns:1fr;gap:50px}.booking h2{font-size:clamp(44px,13vw,62px)}.booking-note{min-height:0}.footer-bottom{margin-top:58px;grid-template-columns:1fr;justify-items:start}.footer-bottom .brand,.footer-bottom>a:last-child{justify-self:start}.footer-bottom p{line-height:1.6}}
@@ -73,16 +84,11 @@
       <div class="cards">
         <article class="card"><span>01</span><div><h3>Коттеджи у воды</h3><p>Уютные дома с видом на водопад и 20 комфортными спальными местами.</p></div></article>
         <article class="card"><span>02</span><div><h3>Бассейны</h3><p>Большой бассейн с водопадом и отдельный безопасный бассейн для детей.</p></div></article>
-        <article class="card"><span>03</span><div><h3>Баня и чан</h3><p>Банный комплекс и лечебный чан для глубокого отдыха круглый год.</p></div></article>
+        <article class="card card-photo"><img src="../public/prohlada-chan-empty.jpg" alt="Банный чан без людей среди зелени"><span>03</span><div><h3>Баня и чан</h3><p>Банный комплекс и лечебный чан для глубокого отдыха круглый год.</p></div></article>
         <article class="card card-photo"><img src="../public/prohlada-gazebo.jpg" alt="Большая освещённая беседка со столами"><span>04</span><div><h3>Всё для застолья</h3><p>Беседки, топчан, мангальная зона, очаг и необходимая посуда.</p></div></article>
         <article class="card"><span>05</span><div><h3>Для всей семьи</h3><p>Качели, детская площадка, шезлонги и волейбольная площадка.</p></div></article>
         <article class="card"><span>06</span><div><h3>Полная приватность</h3><p>Вся большая территория — только для вашей компании.</p></div></article>
       </div>
-    </section>
-
-    <section class="feature">
-      <div class="feature-photo" role="img" aria-label="Гости отдыхают в лечебном банном чане"></div>
-      <div class="feature-copy"><p class="eyebrow">Тепло круглый год</p><h2>Банный чан под открытым небом</h2><p>После насыщенного дня можно согреться в лечебном чане, попариться и спокойно продолжить вечер среди природы.</p><ul><li>банный лечебный чан</li><li>парилка и зона отдыха</li><li>приватная атмосфера для своей компании</li></ul></div>
     </section>
 
     <section class="night-story">

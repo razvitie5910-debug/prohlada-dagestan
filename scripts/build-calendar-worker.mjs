@@ -18,7 +18,7 @@ const photoFiles = {
   "/prohlada-loungers.jpg": "public/prohlada-loungers.jpg",
   "/prohlada-gazebo.jpg": "public/prohlada-gazebo.jpg",
   "/prohlada-night.jpg": "public/prohlada-night.jpg",
-  "/prohlada-chan.jpg": "public/prohlada-chan.jpg"
+  "/prohlada-chan-empty.jpg": "public/prohlada-chan-empty.jpg"
 };
 const photoAssets = Object.fromEntries(await Promise.all(
   Object.entries(photoFiles).map(async ([route, file]) => [
