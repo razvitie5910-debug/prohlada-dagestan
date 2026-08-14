@@ -24,6 +24,7 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -92,6 +93,7 @@ nav {
   align-items: center;
   gap: 34px;
   font-size: 13px;
+  font-weight: 600;
 }
 
 nav a,
@@ -112,6 +114,7 @@ footer > a:hover {
   background: var(--green);
   color: white;
   font-size: 12px;
+  font-weight: 700;
   transition: transform 180ms ease, background 180ms ease;
 }
 
@@ -223,7 +226,7 @@ footer > a:hover {
 .booking h2 {
   margin: 0;
   font-family: Georgia, "Times New Roman", serif;
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.045em;
 }
 
@@ -244,8 +247,9 @@ footer > a:hover {
 .hero-lead {
   max-width: 530px;
   margin: 38px 0 0;
-  color: #5d625a;
+  color: #485148;
   font-size: 17px;
+  font-weight: 600;
   line-height: 1.65;
 }
 
@@ -265,6 +269,7 @@ footer > a:hover {
   gap: 26px;
   border-radius: 999px;
   font-size: 13px;
+  font-weight: 700;
   transition: transform 180ms ease, background 180ms ease, color 180ms ease;
 }
 
@@ -282,6 +287,7 @@ footer > a:hover {
   align-items: center;
   gap: 12px;
   font-size: 13px;
+  font-weight: 600;
 }
 
 .hero-facts {
@@ -421,8 +427,9 @@ footer > a:hover {
 .intro-copy {
   align-self: end;
   max-width: 520px;
-  color: #656a62;
+  color: #4f574f;
   font-size: 15px;
+  font-weight: 600;
   line-height: 1.75;
 }
 
@@ -458,8 +465,9 @@ footer > a:hover {
 .values p {
   max-width: 230px;
   margin: 10px 0 0;
-  color: #747970;
+  color: #525a52;
   font-size: 12px;
+  font-weight: 600;
   line-height: 1.55;
 }
 
@@ -484,8 +492,9 @@ footer > a:hover {
 .section-heading > p {
   max-width: 470px;
   margin: 0 0 4px;
-  color: #6a6f67;
+  color: #4f574f;
   font-size: 15px;
+  font-weight: 600;
   line-height: 1.7;
 }
 
@@ -531,8 +540,9 @@ footer > a:hover {
 .amenity-card p {
   max-width: 310px;
   margin: 0;
-  color: #71766e;
+  color: #515951;
   font-size: 13px;
+  font-weight: 600;
   line-height: 1.6;
 }
 
@@ -562,7 +572,8 @@ footer > a:hover {
 
 .feature-copy > p:not(.section-kicker) {
   margin: 30px 0 0;
-  color: rgba(255, 255, 255, 0.66);
+  color: rgba(255, 255, 255, 0.84);
+  font-weight: 600;
   line-height: 1.75;
 }
 
@@ -578,6 +589,7 @@ footer > a:hover {
   margin: 13px 0;
   padding-left: 24px;
   font-size: 13px;
+  font-weight: 600;
 }
 
 .feature-copy li::before {
@@ -636,8 +648,9 @@ footer > a:hover {
 
 .price-note {
   margin: 5px 0 0;
-  color: #6f746c;
+  color: #505850;
   font-size: 12px;
+  font-weight: 700;
 }
 
 .price-divider {
@@ -647,8 +660,9 @@ footer > a:hover {
 
 .price-card > p:not(.price-eyebrow, .price-note) {
   margin: 0;
-  color: #656a62;
+  color: #4d554d;
   font-size: 13px;
+  font-weight: 600;
 }
 
 .price-card a {
@@ -681,8 +695,9 @@ footer > a:hover {
 .capacity-card > p:last-child {
   max-width: 250px;
   margin: 52px 0 0;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.82);
   font-size: 13px;
+  font-weight: 600;
   line-height: 1.6;
 }
 
@@ -711,8 +726,9 @@ footer > a:hover {
 .booking p:not(.section-kicker) {
   max-width: 600px;
   margin: 26px 0 0;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.88);
   font-size: 14px;
+  font-weight: 600;
   line-height: 1.7;
 }
 
