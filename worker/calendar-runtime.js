@@ -187,7 +187,7 @@ function normalizeBooking(body, publicRequest) {
     booking.deposit = 0;
     booking.total = 0;
   }
-  if (!booking.guestName || booking.phone.length < 6) return { error: "Укажите имя и номер телефона" };
+  if (!booking.guestName || booking.phone.length < 6) return { error: "Укажите фамилию, имя, отчество и номер телефона" };
   if (!validDate(booking.checkIn) || !validDate(booking.checkOut) || booking.checkIn >= booking.checkOut) return { error: "Некорректные даты" };
   if (booking.adults == null || booking.children == null || booking.deposit == null || booking.total == null) return { error: "Некорректные числовые данные" };
   const days = (new Date(booking.checkOut + "T00:00:00Z") - new Date(booking.checkIn + "T00:00:00Z")) / 86400000;

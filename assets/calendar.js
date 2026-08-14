@@ -233,7 +233,7 @@
     resultTitle.textContent = displayDate(checkin) + " — " + displayDate(checkout);
     resultGuests.textContent = adults.options[adults.selectedIndex].text + ", " + children.options[children.selectedIndex].text.toLowerCase();
     result.classList.remove("hidden");
-    message.textContent = "Даты свободны. Заполните имя и телефон ниже.";
+    message.textContent = "Даты свободны. Заполните ФИО и телефон ниже.";
     window.setTimeout(function () {
       result.scrollIntoView({ behavior: "smooth", block: "center" });
       document.getElementById("request-name").focus({ preventScroll: true });
@@ -244,7 +244,7 @@
     var name = document.getElementById("request-name").value.trim();
     var phone = document.getElementById("request-phone").value.trim();
     if (!name || phone.length < 6) {
-      message.textContent = "Укажите имя и номер телефона, чтобы владелец мог связаться с вами.";
+      message.textContent = "Укажите полностью фамилию, имя, отчество и номер телефона.";
       return;
     }
     requestButton.disabled = true;

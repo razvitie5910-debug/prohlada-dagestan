@@ -407,10 +407,14 @@
 }
 
 .month-day.booked {
-  background: #efebe7;
-  color: #aaa59f;
+  background: #85827d;
+  border-color: #696661;
+  color: #ffffff;
   cursor: not-allowed;
+  font-weight: 800;
+  opacity: 1;
   text-decoration: line-through;
+  text-decoration-thickness: 2px;
 }
 
 .month-day.empty {
