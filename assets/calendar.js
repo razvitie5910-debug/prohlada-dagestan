@@ -274,7 +274,7 @@
       return;
     }
     if (!consent.checked) {
-      requestStatus.textContent = "Подтвердите согласие на обработку и передачу данных в WhatsApp.";
+      requestStatus.textContent = "Подтвердите согласие на обработку персональных данных.";
       return;
     }
     requestButton.disabled = true;
@@ -316,18 +316,9 @@
       success.innerHTML = '<strong>Заявка №' + (data.id || "") + ' отправлена</strong><p>Владелец увидит её в админке и свяжется с вами для подтверждения.</p>';
       result.insertBefore(success, result.firstChild);
       requestButton.textContent = "Заявка отправлена";
-      var whatsappMessage = [
-        "Здравствуйте! Новая заявка с сайта «Прохлада».",
-        data.id ? "Заявка №" + data.id : "",
-        "ФИО: " + name,
-        "Телефон: " + phone,
-        "Место проживания: " + residence,
-        "Заезд: " + displayDate(checkin) + ", с 13:00",
-        "Выезд: " + displayDate(checkout) + ", до 10:30",
-        "Гости: " + adultCount + " взрослых, " + childCount + " детей",
-        "Формат: " + stayLabel,
-        "Комментарий: " + (notes || "нет")
-      ].filter(Boolean).join("\n");
+      var whatsappMessage = data.id
+        ? "Здравствуйте! Создана заявка №" + data.id + ". Прошу подтвердить бронирование."
+        : "Здравствуйте! Создана новая заявка. Прошу подтвердить бронирование.";
       var whatsappUrl = "https://wa.me/79673999188?text=" + encodeURIComponent(whatsappMessage);
       requestStatus.textContent = "Заявка сохранена. Открываем WhatsApp…";
       if (whatsappWindow) whatsappWindow.location.href = whatsappUrl;

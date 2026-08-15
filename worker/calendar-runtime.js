@@ -197,7 +197,7 @@ function normalizeBooking(body, publicRequest) {
     booking.checkoutTime = booking.checkoutTime || "10:30";
   }
   if (!booking.guestName || booking.phone.length < 6 || !booking.residence) return { error: "Укажите фамилию, имя, отчество, номер телефона и место проживания" };
-  if (publicRequest && !booking.consentAccepted) return { error: "Подтвердите согласие на обработку и передачу данных в WhatsApp" };
+  if (publicRequest && !booking.consentAccepted) return { error: "Подтвердите согласие на обработку персональных данных" };
   if (!validDate(booking.checkIn) || !validDate(booking.checkOut) || booking.checkIn >= booking.checkOut) return { error: "Некорректные даты" };
   if (booking.adults == null || booking.children == null || booking.deposit == null || booking.total == null) return { error: "Некорректные числовые данные" };
   const days = (new Date(booking.checkOut + "T00:00:00Z") - new Date(booking.checkIn + "T00:00:00Z")) / 86400000;
