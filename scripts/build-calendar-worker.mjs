@@ -19,7 +19,9 @@ const photoFiles = {
   "/prohlada-night.jpg": "public/prohlada-night.jpg",
   "/prohlada-chan-empty.jpg": "public/prohlada-chan-empty.jpg",
   "/prohlada-tea-table.jpg": "public/prohlada-tea-table.jpg",
-  "/prohlada-pool-waterfall.jpg": "public/prohlada-pool-waterfall.jpg"
+  "/prohlada-pool-waterfall.jpg": "public/prohlada-pool-waterfall.jpg",
+  "/prohlada-pool-card.jpg": "public/prohlada-pool-card.jpg",
+  "/prohlada-family-loungers.jpg": "public/prohlada-family-loungers.jpg"
 };
 const photoAssets = Object.fromEntries(await Promise.all(
   Object.entries(photoFiles).map(async ([route, file]) => [
@@ -45,3 +47,4 @@ const outputDir = join(outputRoot, "dist", "server");
 await mkdir(outputDir, { recursive: true });
 const output = join(outputDir, "index.js");
 writeFileSync(output, constants + "\n" + runtime);
+

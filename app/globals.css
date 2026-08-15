@@ -1,4 +1,4 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
 :root {
   --ink: #20251f;
@@ -150,13 +150,13 @@ footer > a:hover {
 }
 
 .mobile-menu summary::after {
-  content: "☰";
+  content: "в°";
   font-size: 17px;
   font-weight: 400;
 }
 
 .mobile-menu[open] summary::after {
-  content: "×";
+  content: "Г—";
   font-size: 24px;
 }
 
@@ -671,7 +671,7 @@ footer > a:hover {
 }
 
 .feature-copy li::before {
-  content: "—";
+  content: "вЂ”";
   position: absolute;
   left: 0;
   color: #d6aa83;
@@ -1196,4 +1196,21 @@ footer > a {
   *::after {
     transition-duration: 0.01ms !important;
   }
+}
+
+
+
+/* Prohlada brochure updates: cropped pool card, family photo card and WhatsApp button. */
+.pool-clean-card > img {
+  height: 186%;
+  object-position: center top;
+}
+
+.family-loungers-card > img {
+  object-position: center center;
+}
+
+.button-whatsapp {
+  background: #25d366;
+  color: #17331f;
 }

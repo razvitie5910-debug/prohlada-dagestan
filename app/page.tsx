@@ -1,5 +1,6 @@
 ﻿const instagramUrl = "https://www.instagram.com/prohlada.dagestan/";
 const phoneUrl = "tel:+79673999188";
+const whatsappUrl = "https://wa.me/79673999188";
 
 const amenities = [
   {
@@ -11,8 +12,8 @@ const amenities = [
   {
     number: "02",
     title: "Бассейны",
-    text: "Большой бассейн с водопадом и отдельный безопасный бассейн для детей.",
-    image: null,
+    text: "Большой бассейн с водопадом, пресная чистая вода 💦, и отдельный безопасный бассейн для детей.",
+    image: "/prohlada-pool-card.jpg",
   },
   {
     number: "03",
@@ -30,7 +31,7 @@ const amenities = [
     number: "05",
     title: "Для всей семьи",
     text: "Качели, детская площадка, шезлонги и волейбольная площадка.",
-    image: null,
+    image: "/prohlada-family-loungers.jpg",
   },
   {
     number: "06",
@@ -209,7 +210,7 @@ export default function Home() {
 
         <div className="amenities-grid">
           {amenities.map((item) => (
-            <article className={`amenity-card${item.image ? " amenity-photo" : ""}`} key={item.number}>
+            <article className={`amenity-card${item.image ? " amenity-photo" : ""}${item.image === "/prohlada-pool-card.jpg" ? " pool-clean-card" : ""}${item.image === "/prohlada-family-loungers.jpg" ? " family-loungers-card" : ""}`} key={item.number}>
               {item.image ? <img src={item.image} alt="Большая освещённая беседка со столами" /> : null}
               <span>{item.number}</span>
               <div>
@@ -282,6 +283,13 @@ export default function Home() {
             +7 967 399-91-88 <ArrowIcon />
           </a>
           <a
+            className="button button-whatsapp"
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp <ArrowIcon />
+          </a>          <a
             className="button button-outline"
             href={instagramUrl}
             target="_blank"
@@ -308,3 +316,9 @@ export default function Home() {
     </main>
   );
 }
+
+
+
+
+
+
