@@ -20,6 +20,7 @@
   current = new Date(current.getFullYear(), current.getMonth(), 1);
   var statuses = {};
   var sources = {};
+  var pendingDate = "";
   var bookings = [];
   var months = ["январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"];
   var fullMonths = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября", "ноября", "декабря"];
@@ -55,6 +56,26 @@
     renderCalendar();
   }
 
+  function requestDateToggle(date) {
+    if (sources[date] === "booking") {
+      pendingDate = "";
+      statusLine.textContent = "Дата занята подтверждённой бронью — измените её в карточке гостя.";
+      renderCalendar();
+      return;
+    }
+    if (pendingDate !== date) {
+      pendingDate = date;
+      statusLine.textContent = statuses[date] === "booked"
+        ? "Нажмите эту дату ещё раз, чтобы освободить: " + displayDate(date)
+        : "Нажмите эту дату ещё раз, чтобы закрыть: " + displayDate(date);
+      renderCalendar();
+      return;
+    }
+    pendingDate = "";
+    saveDate(date, statuses[date] === "booked" ? "" : "booked").catch(function (error) {
+      statusLine.textContent = error.message;
+    });
+  }
   function renderCalendar() {
     title.textContent = months[current.getMonth()] + " " + current.getFullYear();
     grid.innerHTML = "";
@@ -69,14 +90,16 @@
       if (date.getMonth() !== current.getMonth()) button.className += " outside";
       if (dateKey === today) button.className += " today";
       if (sources[dateKey] === "booking") button.className += " from-booking";
+      if (dateKey === pendingDate) button.className += " pending-change";
       button.textContent = String(date.getDate());
-      button.title = sources[dateKey] === "booking" ? "Подтверждённая бронь" : (state === "available" ? "Свободно" : "Закрыто вручную");
-      button.addEventListener("click", function (value) { return function () { saveDate(value, statuses[value] === "booked" ? "" : "booked").catch(function (error) { statusLine.textContent = error.message; }); }; }(dateKey));
+      button.title = sources[dateKey] === "booking" ? "Подтверждённая бронь" : (state === "available" ? "Свободно — нажмите два раза, чтобы закрыть" : "Закрыто вручную — нажмите два раза, чтобы освободить");
+      button.addEventListener("click", function (value) { return function () { requestDateToggle(value); }; }(dateKey));
       grid.appendChild(button);
     }
   }
 
   async function loadMonth() {
+    pendingDate = "";
     statusLine.textContent = "Загружаем даты…";
     var range = rangeForMonth(current);
     var data = await responseJson(await fetch("/api/availability?from=" + range.from + "&to=" + range.to));
