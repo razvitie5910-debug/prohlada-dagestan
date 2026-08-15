@@ -1,4 +1,4 @@
-const instagramUrl = "https://www.instagram.com/prohlada.dagestan/";
+﻿const instagramUrl = "https://www.instagram.com/prohlada.dagestan/";
 const phoneUrl = "tel:+79673999188";
 
 const amenities = [
@@ -86,15 +86,13 @@ export default function Home() {
           <div className="mobile-menu-panel">
             <a href="#about">О месте</a>
             <a href="#amenities">Удобства</a>
-            <a href="#calendar">Свободные даты</a>
             <a href="#prices">Цены</a>
             <a href="#contacts">Контакты</a>
-            <a className="mobile-booking" href="#calendar">Забронировать</a>
           </div>
         </details>
 
         <a className="header-cta" href={phoneUrl}>
-          Забронировать
+          Позвонить
         </a>
       </header>
 
@@ -111,7 +109,7 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <a className="button button-dark" href={phoneUrl}>
-              Узнать свободные даты <ArrowIcon />
+              Позвонить хозяину <ArrowIcon />
             </a>
             <a className="text-link" href="#prices">
               Посмотреть цены <span aria-hidden="true">↓</span>
@@ -240,7 +238,7 @@ export default function Home() {
           </div>
           <p>
             Без скрытых доплат за отдельные зоны. Актуальность цены и
-            свободные даты уточняйте при бронировании.
+            свободные даты уточняйте по телефону или в Instagram.
           </p>
         </div>
 
@@ -257,7 +255,7 @@ export default function Home() {
               <div className="price-divider" />
               <p>{item.extra}</p>
               <a href={phoneUrl}>
-                Выбрать дату <ArrowIcon />
+                Уточнить дату <ArrowIcon />
               </a>
             </article>
           ))}
@@ -272,8 +270,8 @@ export default function Home() {
 
       <section className="booking" id="contacts">
         <div>
-          <p className="section-kicker">Бронирование</p>
-          <h2>Ваш отдых начинается с одной даты</h2>
+          <p className="section-kicker">Контакты</p>
+          <h2>Посмотрите условия и свяжитесь напрямую</h2>
           <p>
             Позвоните или напишите в Instagram — расскажем о свободных датах,
             ответим на вопросы и поможем всё спланировать.
