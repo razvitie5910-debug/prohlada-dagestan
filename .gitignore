@@ -43,4 +43,8 @@ next-env.d.ts
 !/outputs/prohlada-preview.html
 /work/
 /netlify-dist/
+/netlify-functions-bundled/
 /*.tar.gz
+
+# Local Netlify folder
+.netlify

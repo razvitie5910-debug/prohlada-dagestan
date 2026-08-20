@@ -1,13 +1,17 @@
 import { cp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { build as viteBuild } from "vite";
 
 const root = fileURLToPath(new URL("../", import.meta.url));
 const output = join(root, "netlify-dist");
+const functionsOutput = join(root, "netlify-functions-bundled");
 const read = (path) => readFile(join(root, path), "utf8");
 
 await rm(output, { recursive: true, force: true });
+await rm(functionsOutput, { recursive: true, force: true });
 await mkdir(join(output, "admin"), { recursive: true });
+await mkdir(functionsOutput, { recursive: true });
 
 let publicHtml = (await read("outputs/prohlada-preview.html")).replaceAll("../public/", "/");
 const publicPricing = await read("assets/public-pricing.js");
@@ -25,4 +29,21 @@ for (const entry of await readdir(join(root, "public"), { withFileTypes: true })
   await cp(join(root, "public", entry.name), join(output, entry.name), { recursive: entry.isDirectory() });
 }
 
+await viteBuild({
+  configFile: false,
+  logLevel: "warn",
+  build: {
+    ssr: join(root, "netlify", "functions", "pricing.mjs"),
+    outDir: functionsOutput,
+    emptyOutDir: false,
+    target: "node20",
+    minify: false,
+    rollupOptions: {
+      output: { entryFileNames: "pricing.mjs" },
+    },
+  },
+  ssr: { noExternal: true },
+});
+
 console.log("Netlify output ready:", output);
+console.log("Netlify functions ready:", functionsOutput);
