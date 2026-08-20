@@ -42,3 +42,5 @@ next-env.d.ts
 /outputs/*
 !/outputs/prohlada-preview.html
 /work/
+/netlify-dist/
+/*.tar.gz

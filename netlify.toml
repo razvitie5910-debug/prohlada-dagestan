@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build:netlify"
+  publish = "netlify-dist"
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/pricing"
+  to = "/.netlify/functions/pricing"
+  status = 200
+  force = true
