@@ -28,7 +28,7 @@ const amenities = [
     number: "04",
     title: "Парилка",
     text: "Сердце бани с печью-каменкой, паром, хорошей вентиляцией и комнатой отдыха.",
-    image: "/prohlada-steam-room-original.png",
+    image: "/prohlada-steam-room-final.png",
     alt: "Деревянная парилка с печью-каменкой и лежаками",
   },
   {
