@@ -13,9 +13,9 @@ const amenities = [
   {
     number: "02",
     title: "Бассейны",
-    text: "Большой бассейн с водопадом, пресная чистая вода 💦, и отдельный безопасный бассейн для детей.",
-    image: "/prohlada-pools-full.png",
-    alt: "Бассейны гостевого дома Прохлада: большой бассейн с водопадом и отдельный безопасный бассейн для детей",
+    text: "Большой бассейн с подогревом, пресная чистая вода 💦, и отдельный безопасный бассейн для детей.",
+    image: "/prohlada-pools-heated.png",
+    alt: "Бассейны гостевого дома Прохлада: большой бассейн с подогревом и отдельный безопасный бассейн для детей",
   },
   {
     number: "03",
@@ -28,7 +28,7 @@ const amenities = [
     number: "04",
     title: "Парилка",
     text: "Сердце бани с печью-каменкой, паром, хорошей вентиляцией и комнатой отдыха.",
-    image: "/prohlada-steam-room.jpg",
+    image: "/prohlada-steam-room-clean.png",
     alt: "Деревянная парилка с печью-каменкой и лежаками",
   },
   {
@@ -230,7 +230,7 @@ export default function Home() {
 
         <div className="amenities-grid amenities-grid-eight">
           {amenities.map((item) => (
-            <article className={`amenity-card${item.image ? " amenity-photo" : ""}${item.image === "/prohlada-pools-full.png" ? " pool-full-card" : ""}${item.image === "/prohlada-family-loungers.jpg" ? " family-loungers-card" : ""}`} key={item.number}>
+            <article className={`amenity-card${item.image ? " amenity-photo" : ""}${item.image === "/prohlada-pools-heated.png" ? " pool-full-card" : ""}${item.image === "/prohlada-family-loungers.jpg" ? " family-loungers-card" : ""}`} key={item.number}>
               {item.image ? <img src={item.image} alt={item.alt} /> : null}
               <span>{item.number}</span>
               <div>
