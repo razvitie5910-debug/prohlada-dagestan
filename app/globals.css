@@ -150,13 +150,13 @@ footer > a:hover {
 }
 
 .mobile-menu summary::after {
-  content: "☰";
+  content: "в°";
   font-size: 17px;
   font-weight: 400;
 }
 
 .mobile-menu[open] summary::after {
-  content: "×";
+  content: "Г—";
   font-size: 24px;
 }
 
@@ -554,6 +554,22 @@ footer > a:hover {
   border-left: 1px solid var(--line);
 }
 
+.amenities-grid-eight {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.amenities-grid-eight > .amenity-card {
+  grid-column: span 2;
+}
+
+.amenities-grid-eight > .amenity-card:nth-last-child(2) {
+  grid-column: 2 / span 2;
+}
+
+.amenities-grid-eight > .amenity-card:last-child {
+  grid-column: 4 / span 2;
+}
+
 .amenity-card {
   min-height: 250px;
   padding: 27px;
@@ -671,7 +687,7 @@ footer > a:hover {
 }
 
 .feature-copy li::before {
-  content: "—";
+  content: "вЂ”";
   position: absolute;
   left: 0;
   color: #d6aa83;
@@ -930,6 +946,16 @@ footer > a {
 
   .hero-facts > div:last-child {
     display: none;
+  }
+
+  .amenities-grid-eight {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .amenities-grid-eight > .amenity-card,
+  .amenities-grid-eight > .amenity-card:nth-last-child(2),
+  .amenities-grid-eight > .amenity-card:last-child {
+    grid-column: auto;
   }
 
   .price-grid {
@@ -1196,4 +1222,35 @@ footer > a {
   *::after {
     transition-duration: 0.01ms !important;
   }
+}
+
+
+
+/* Prohlada brochure updates: full pool card, family photo card and WhatsApp button. */
+.pool-full-card {
+  min-height: 0;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+  background: #17362f;
+}
+
+.pool-full-card::after,
+.pool-full-card > span,
+.pool-full-card > div {
+  display: none;
+}
+
+.pool-full-card > img {
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.family-loungers-card > img {
+  object-position: center center;
+}
+
+.button-whatsapp {
+  background: #25d366;
+  color: #17331f;
 }

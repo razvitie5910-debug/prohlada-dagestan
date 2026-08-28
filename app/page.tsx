@@ -1,5 +1,6 @@
 const instagramUrl = "https://www.instagram.com/prohlada.dagestan/";
 const phoneUrl = "tel:+79673999188";
+const whatsappUrl = "https://wa.me/79673999188";
 
 const amenities = [
   {
@@ -7,36 +8,56 @@ const amenities = [
     title: "Коттеджи у воды",
     text: "Уютные дома с видом на водопад и 20 комфортными спальными местами.",
     image: null,
+    alt: "",
   },
   {
     number: "02",
     title: "Бассейны",
-    text: "Большой бассейн с водопадом и отдельный безопасный бассейн для детей.",
-    image: null,
+    text: "Большой бассейн с водопадом, пресная чистая вода 💦, и отдельный безопасный бассейн для детей.",
+    image: "/prohlada-pools-full.png",
+    alt: "Бассейны гостевого дома Прохлада: большой бассейн с водопадом и отдельный безопасный бассейн для детей",
   },
   {
     number: "03",
     title: "Баня и чан",
     text: "Банный комплекс и лечебный чан для глубокого отдыха в любое время года.",
     image: "/prohlada-chan-empty.jpg",
+    alt: "Банный чан без людей среди зелени",
   },
   {
     number: "04",
-    title: "Всё для застолья",
-    text: "Просторные беседки, топчан, мангальная зона, очаг и необходимая посуда.",
-    image: "/prohlada-gazebo.jpg",
+    title: "Парилка",
+    text: "Сердце бани с печью-каменкой, паром, хорошей вентиляцией и комнатой отдыха.",
+    image: "/prohlada-steam-room.jpg",
+    alt: "Деревянная парилка с печью-каменкой и лежаками",
   },
   {
     number: "05",
-    title: "Для всей семьи",
-    text: "Качели, детская площадка, шезлонги и волейбольная площадка.",
-    image: null,
+    title: "Мангальная зона",
+    text: "Площадка с мангалом, тёплым полом, телевизором, холодильником и большим столом с видом на водопад.",
+    image: "/prohlada-barbecue-zone.jpg",
+    alt: "Мангальная зона с кирпичной печью, столешницами и тёплым полом",
   },
   {
     number: "06",
+    title: "Всё для застолья",
+    text: "Просторные беседки, топчан, мангальная зона, очаг и необходимая посуда.",
+    image: "/prohlada-gazebo.jpg",
+    alt: "Просторная освещённая беседка со столами для общей компании",
+  },
+  {
+    number: "07",
+    title: "Для всей семьи",
+    text: "Качели, детская площадка, шезлонги и волейбольная площадка.",
+    image: "/prohlada-family-loungers.jpg",
+    alt: "Шезлонги и зона отдыха для всей семьи среди зелени",
+  },
+  {
+    number: "08",
     title: "Полная приватность",
     text: "Вся большая территория — только для вашей компании, без посторонних.",
     image: null,
+    alt: "",
   },
 ];
 
@@ -86,15 +107,13 @@ export default function Home() {
           <div className="mobile-menu-panel">
             <a href="#about">О месте</a>
             <a href="#amenities">Удобства</a>
-            <a href="#calendar">Свободные даты</a>
             <a href="#prices">Цены</a>
             <a href="#contacts">Контакты</a>
-            <a className="mobile-booking" href="#calendar">Забронировать</a>
           </div>
         </details>
 
         <a className="header-cta" href={phoneUrl}>
-          Забронировать
+          Позвонить
         </a>
       </header>
 
@@ -111,7 +130,7 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <a className="button button-dark" href={phoneUrl}>
-              Узнать свободные даты <ArrowIcon />
+              Позвонить хозяину <ArrowIcon />
             </a>
             <a className="text-link" href="#prices">
               Посмотреть цены <span aria-hidden="true">↓</span>
@@ -209,10 +228,10 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="amenities-grid">
+        <div className="amenities-grid amenities-grid-eight">
           {amenities.map((item) => (
-            <article className={`amenity-card${item.image ? " amenity-photo" : ""}`} key={item.number}>
-              {item.image ? <img src={item.image} alt="Большая освещённая беседка со столами" /> : null}
+            <article className={`amenity-card${item.image ? " amenity-photo" : ""}${item.image === "/prohlada-pools-full.png" ? " pool-full-card" : ""}${item.image === "/prohlada-family-loungers.jpg" ? " family-loungers-card" : ""}`} key={item.number}>
+              {item.image ? <img src={item.image} alt={item.alt} /> : null}
               <span>{item.number}</span>
               <div>
                 <h3>{item.title}</h3>
@@ -240,7 +259,7 @@ export default function Home() {
           </div>
           <p>
             Без скрытых доплат за отдельные зоны. Актуальность цены и
-            свободные даты уточняйте при бронировании.
+            свободные даты уточняйте по телефону или в Instagram.
           </p>
         </div>
 
@@ -257,7 +276,7 @@ export default function Home() {
               <div className="price-divider" />
               <p>{item.extra}</p>
               <a href={phoneUrl}>
-                Выбрать дату <ArrowIcon />
+                Уточнить дату <ArrowIcon />
               </a>
             </article>
           ))}
@@ -272,8 +291,8 @@ export default function Home() {
 
       <section className="booking" id="contacts">
         <div>
-          <p className="section-kicker">Бронирование</p>
-          <h2>Ваш отдых начинается с одной даты</h2>
+          <p className="section-kicker">Контакты</p>
+          <h2>Посмотрите условия и свяжитесь напрямую</h2>
           <p>
             Позвоните или напишите в Instagram — расскажем о свободных датах,
             ответим на вопросы и поможем всё спланировать.
@@ -284,6 +303,13 @@ export default function Home() {
             +7 967 399-91-88 <ArrowIcon />
           </a>
           <a
+            className="button button-whatsapp"
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WhatsApp <ArrowIcon />
+          </a>          <a
             className="button button-outline"
             href={instagramUrl}
             target="_blank"
@@ -310,3 +336,9 @@ export default function Home() {
     </main>
   );
 }
+
+
+
+
+
+

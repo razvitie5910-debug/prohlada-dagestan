@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Управление ценами — Прохлада</title>
+  <style>
+    :root{--ink:#252c25;--green:#334034;--paper:#efede7;--cream:#e7e3da;--copper:#9f6d4e;--line:rgba(37,44,37,.16)}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Arial,sans-serif;font-weight:600}button,input{font:inherit}a{color:inherit;text-decoration:none}.hidden{display:none!important}
+    header{width:min(980px,calc(100% - 40px));height:88px;margin:auto;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+    .brand{display:flex;align-items:center;gap:12px}.mark{width:42px;height:42px;display:grid;place-items:center;border:1px solid var(--copper);border-radius:50%;color:var(--copper);font-size:23px}.brand strong,.brand small{display:block}.brand strong{font:600 22px Georgia,serif;letter-spacing:.08em}.brand small{margin-top:4px;font-size:9px;letter-spacing:.18em}.back{padding:12px 18px;border:1px solid var(--line);border-radius:999px;background:#f8f6f1}
+    main{width:min(980px,calc(100% - 40px));margin:auto;padding:64px 0 100px}.eyebrow{margin:0 0 16px;color:var(--copper);font-size:12px;letter-spacing:.18em;text-transform:uppercase}h1{max-width:760px;margin:0;font:600 clamp(44px,7vw,76px)/1 Georgia,serif;letter-spacing:-.04em}.lead{max-width:700px;margin:24px 0 0;color:#525a52;font-size:17px;line-height:1.65}
+    .card{margin-top:38px;padding:32px;border:1px solid var(--line);border-radius:22px;background:#f8f6f1;box-shadow:0 20px 55px rgba(45,56,45,.07)}.card h2{margin:0 0 22px;font:600 32px Georgia,serif}.field{display:grid;gap:8px}.field label{font-size:13px}.field input{width:100%;min-height:54px;padding:0 16px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);font-size:18px;font-weight:700}.login-row{display:grid;grid-template-columns:1fr auto;gap:12px}.primary{min-height:54px;padding:0 24px;border:0;border-radius:999px;background:var(--green);color:#fff;cursor:pointer;font-weight:800}.status{min-height:22px;margin-top:14px;color:#8f4d38;font-size:14px;line-height:1.5}
+    .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.price-group{padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--cream)}.price-group h3{margin:0 0 20px;font:600 27px Georgia,serif}.price-group .field+.field{margin-top:16px}.actions{margin-top:24px;display:flex;align-items:center;justify-content:space-between;gap:16px}.save-status{margin:0;color:#526052}.success{color:#2d6637}.error{color:#8f3f36}
+    @media(max-width:700px){header,main{width:calc(100% - 28px)}header{height:76px}.brand strong{font-size:18px}.brand small{font-size:7px}.back{padding:10px 13px;font-size:13px}main{padding:44px 0 70px}h1{font-size:48px}.card{padding:22px 16px;border-radius:18px}.login-row,.price-grid{grid-template-columns:1fr}.actions{align-items:stretch;flex-direction:column}.actions .primary{width:100%}.save-status{width:100%;text-align:center}}
+  </style>
+</head>
+<body>
+  <header><a class="brand" href="/"><span class="mark">✣</span><span><strong>ПРОХЛАДА</strong><small>УПРАВЛЕНИЕ ЦЕНАМИ</small></span></a><a class="back" href="/">На сайт</a></header>
+  <main>
+    <p class="eyebrow">Панель владельца</p>
+    <h1>Изменение прайса</h1>
+    <p class="lead">После сохранения новые цены сразу будут показываться всем посетителям сайта.</p>
+
+    <section class="card" id="login-card">
+      <h2>Вход</h2>
+      <form id="login-form">
+        <div class="login-row"><div class="field"><label for="password">Пароль администратора</label><input id="password" type="password" autocomplete="current-password" required placeholder="Введите пароль"></div><button class="primary" type="submit">Войти</button></div>
+        <div class="status" id="login-status" aria-live="polite"></div>
+      </form>
+    </section>
+
+    <section class="card hidden" id="price-card">
+      <form id="price-form">
+        <div class="price-grid">
+          <div class="price-group"><h3>Без ночлега</h3><div class="field"><label for="day-price">Основная цена, ₽</label><input id="day-price" type="number" min="0" max="10000000" step="100" required></div><div class="field"><label for="day-guests">Гостей включено</label><input id="day-guests" type="number" min="1" max="100" required></div><div class="field"><label for="day-extra">Доплата за следующего гостя, ₽</label><input id="day-extra" type="number" min="0" max="10000000" step="100" required></div></div>
+          <div class="price-group"><h3>С ночлегом</h3><div class="field"><label for="overnight-price">Основная цена, ₽</label><input id="overnight-price" type="number" min="0" max="10000000" step="100" required></div><div class="field"><label for="overnight-guests">Гостей включено</label><input id="overnight-guests" type="number" min="1" max="100" required></div><div class="field"><label for="overnight-extra">Доплата за следующего гостя, ₽</label><input id="overnight-extra" type="number" min="0" max="10000000" step="100" required></div></div>
+        </div>
+        <div class="actions"><p class="save-status" id="save-status" aria-live="polite"></p><button class="primary" type="submit">Сохранить цены</button></div>
+      </form>
+    </section>
+  </main>
+  <script src="/price-admin.js"></script>
+</body>
+</html>
