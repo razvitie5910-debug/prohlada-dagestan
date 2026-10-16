@@ -115,13 +115,13 @@ const html = `<!doctype html>
           <article class="price-card">
             <p class="price-eyebrow">День на территории</p><h3>Без ночлега</h3>
             <div class="price-value">15 000 ₽</div><p class="price-note">до 10 гостей</p>
-            <div class="price-divider"></div><p>+ 500 ₽ за каждого следующего гостя</p>
+            <div class="price-divider"></div><div class="price-details"><p class="price-extra">+ 500 ₽ за каждого следующего гостя</p></div>
             <a href="tel:+79673999188">Выбрать дату <span aria-hidden="true">↗</span></a>
           </article>
           <article class="price-card featured">
             <p class="price-eyebrow">Отдых с размещением</p><h3>С ночлегом</h3>
             <div class="price-value">15 000 ₽</div><p class="price-note">до 5 гостей</p>
-            <div class="price-divider"></div><p>+ 1 000 ₽ за каждого следующего гостя</p>
+            <div class="price-divider"></div><div class="price-details"><p class="price-extra">+ 1 000 ₽ за каждого следующего гостя</p><p class="price-discount">Скидка при бронировании от 2-х суток</p></div>
             <a href="tel:+79673999188">Выбрать дату <span aria-hidden="true">↗</span></a>
           </article>
           <article class="capacity-card">

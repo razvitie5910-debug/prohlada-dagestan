@@ -14,10 +14,10 @@
     .then(function (pricing) {
       setText('[data-price="day"]', money.format(pricing.dayPrice) + " ₽");
       setText('[data-price="day-guests"]', "до " + pricing.dayGuests + " гостей");
-      setText('[data-price="day-extra"]', "+ " + money.format(pricing.dayExtra) + " ₽ за следующего гостя");
+      setText('[data-price="day-extra"]', "+ " + money.format(pricing.dayExtra) + " ₽ за каждого следующего гостя");
       setText('[data-price="overnight"]', money.format(pricing.overnightPrice) + " ₽");
       setText('[data-price="overnight-guests"]', "до " + pricing.overnightGuests + " гостей");
-      setText('[data-price="overnight-extra"]', "+ " + money.format(pricing.overnightExtra) + " ₽ за следующего гостя");
+      setText('[data-price="overnight-extra"]', "+ " + money.format(pricing.overnightExtra) + " ₽ за каждого следующего гостя");
     })
     .catch(function () {
       // Keep the default prices when the API is temporarily unavailable.

@@ -75,6 +75,7 @@ const prices = [
     price: "15 000 ₽",
     note: "до 5 гостей",
     extra: "+ 1 000 ₽ за каждого следующего гостя",
+    discount: "Скидка при бронировании от 2-х суток",
     featured: true,
   },
 ];
@@ -274,7 +275,12 @@ export default function Home() {
               <div className="price-value">{item.price}</div>
               <p className="price-note">{item.note}</p>
               <div className="price-divider" />
-              <p>{item.extra}</p>
+              <div className="price-details">
+                <p className="price-extra">{item.extra}</p>
+                {item.discount && (
+                  <p className="price-discount">{item.discount}</p>
+                )}
+              </div>
               <a href={phoneUrl}>
                 Уточнить дату <ArrowIcon />
               </a>
